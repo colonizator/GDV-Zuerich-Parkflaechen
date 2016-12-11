@@ -21,6 +21,7 @@ public class HelloUnfoldingWorld extends PApplet {
 	private UnfoldingMap forestMap;
 	private Location zurichLocation;
 	private float maxPanningDistance;
+	
 	private List<Marker> parkMarkers;
 	private List<Marker> districtMarkers;
 	private List<Marker> forestMarkers;
@@ -76,7 +77,7 @@ public class HelloUnfoldingWorld extends PApplet {
 		this.map = new UnfoldingMap(this, 0, 0, 400, 400);
 		this.map.zoomTo(11);
 		this.map.panTo(this.zurichLocation);
-		this.map.setZoomRange(10, 20);
+		this.map.setZoomRange(10, 18);
 		this.map.setPanningRestriction(this.zurichLocation, this.maxPanningDistance);
 		//this.map.setTweening(true);
 		MapUtils.createDefaultEventDispatcher(this, this.map);
@@ -86,7 +87,7 @@ public class HelloUnfoldingWorld extends PApplet {
 		this.parkMap = new UnfoldingMap(this, 410, 0, 400, 400);
 		this.parkMap.zoomTo(13);
 		this.parkMap.panTo(this.zurichLocation);
-		this.parkMap.setZoomRange(10, 20);
+		this.parkMap.setZoomRange(12, 18);
 		this.parkMap.setPanningRestriction(this.zurichLocation, this.maxPanningDistance);
 		MapUtils.createDefaultEventDispatcher(this, this.parkMap);
 	}
@@ -95,7 +96,7 @@ public class HelloUnfoldingWorld extends PApplet {
 		this.forestMap = new UnfoldingMap(this, 820, 0, 400, 400);
 		this.forestMap.zoomTo(11);
 		this.forestMap.panTo(this.zurichLocation);
-		this.forestMap.setZoomRange(10, 20);
+		this.forestMap.setZoomRange(11, 18);
 		this.forestMap.setPanningRestriction(this.zurichLocation, this.maxPanningDistance);
 		MapUtils.createDefaultEventDispatcher(this, this.forestMap);
 	}
