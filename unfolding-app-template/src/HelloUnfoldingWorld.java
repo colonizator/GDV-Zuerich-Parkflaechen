@@ -112,7 +112,7 @@ public class HelloUnfoldingWorld extends PApplet {
 	}
 
 	private void loadForests() {
-		this.forestMarkers = loadMarkers("zurich_waldflächen.geojson",
+		this.forestMarkers = loadMarkers("zurich_waldflaechen.geojson",
 				color(0, 70, 15, 127), color(0, 200, 40, 127));
 	}
 	
