@@ -1,5 +1,13 @@
+import java.util.List;
+
+import Marker.Property;
 import de.fhpotsdam.unfolding.UnfoldingMap;
+import de.fhpotsdam.unfolding.data.Feature;
+import de.fhpotsdam.unfolding.data.GeoJSONReader;
 import de.fhpotsdam.unfolding.geo.Location;
+import de.fhpotsdam.unfolding.marker.Marker;
+import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
+import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import processing.core.PApplet;
 
@@ -18,6 +26,12 @@ public class Main extends PApplet {
 	private UnfoldingMap parkingMapA;
 	private UnfoldingMap parkingMapB;
 	
+	private List<Marker> districtMarkers;
+	private List<Marker> parkMarkers;
+	private List<Marker> grassMarkers;
+	private List<Marker> forestMarkers;
+	private List<Marker> parkingMarkers;
+	
 	private int detailsMapHeight;
 	
 	public static void main(String[] args) {
@@ -32,6 +46,7 @@ public class Main extends PApplet {
 		this.detailsMapHeight = (height-SPACING_TOP)/2;
 		initMaps();
 		loadData();
+		addMarkersToMap();
 	}
 	
 	public void draw() {
@@ -39,6 +54,21 @@ public class Main extends PApplet {
 		drawMaps();
 	}
 
+	public void mouseClicked() {
+		Marker marker = this.districtMap.getFirstHitMarker(mouseX, mouseY);
+		toggleMarker(marker);
+	}
+	
+	public void toggleMarker(Marker marker) {
+		if (marker != null) {
+			if (marker.isSelected()) {
+				marker.setSelected(false);
+			} else {
+				marker.setSelected(true);
+			}
+		}
+	}
+	
 	public void initMaps() {
 		initDistrictMap();
 		initNatureMapA();
@@ -104,15 +134,79 @@ public class Main extends PApplet {
 	}
 	
 	public void loadData() {
-
+		loadDistricts();
+		loadParks();
+		loadGrass();
+		loadForest();
+		//loadParking();
 	}
 	
 	public void loadDistricts() {
-		
+		this.districtMarkers = loadMarkers("zurich_bezirke_nopoints.geojson",
+				color(100, 100, 100, 127), color(220,220,220,127));
+	}
+	
+	public void loadParks() {
+		this.parkMarkers = loadMarkers("zurich_parks.geojson", 
+				color(0, 170, 0, 127), color(0, 230, 0, 127));
+	}
+	
+	public void loadGrass() {
+		this.grassMarkers = loadMarkers("zurich_grasflaechen.geojson",
+				color(0, 220, 0, 127), color(0, 255, 0, 127));
+	}
+	
+	public void loadForest() {
+		this.forestMarkers = loadMarkers("zurich_waldflaechen.geojson",
+				color(0, 70, 15, 127), color(0, 200, 40, 127));
+	}
+	
+	public void loadParking() {
+		this.parkingMarkers = loadMarkers("zurich_parkplatz.geojson",
+				color(0, 75, 170, 127), color(0, 90, 200, 127));
+	}
+	
+	private List<Marker> loadMarkers(String fileName, int color, int highlight) {
+		List<Feature> data = GeoJSONReader.loadData(this, fileName);
+		List<Marker> markers = MapUtils.createSimpleMarkers(data);
+		for(Marker marker : markers) {
+			marker.setColor(color);
+			marker.setHighlightColor(highlight);
+			if (marker instanceof SimplePolygonMarker) {
+				SimplePolygonMarker poly = (SimplePolygonMarker) marker;
+				marker.setProperty(Property.AREA.toString(), 
+						Math.abs(GeoUtils.getArea(poly)));
+			} 
+		}
+		return markers;
 	}
 	
 	public void addMarkersToMap() {
-		
+		addDistrictMarkersToMap();
+		addParkMarkersToMap();
+		addGrassMarkersToMap();
+		addForestMarkersToMap();
+		//addParkingMarkersToMap();
+	}
+	
+	public void addDistrictMarkersToMap() {
+		this.districtMap.addMarkers(this.districtMarkers);
+	}
+	
+	public void addParkMarkersToMap() {
+		this.natureMapB.addMarkers(this.parkMarkers);
+	}
+	
+	public void addGrassMarkersToMap() {
+		this.natureMapB.addMarkers(this.grassMarkers);
+	}
+	
+	public void addForestMarkersToMap() {
+		this.natureMapB.addMarkers(this.forestMarkers);
+	}
+	
+	public void addParkingMarkersToMap() {
+		this.parkingMapB.addMarkers(this.parkingMarkers);
 	}
 	
 	public void drawMaps() {
