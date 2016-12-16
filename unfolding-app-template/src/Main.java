@@ -6,6 +6,7 @@ import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoJSONReader;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
+import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -27,10 +28,17 @@ public class Main extends PApplet {
 	private UnfoldingMap parkingMapB;
 	
 	private List<Marker> districtMarkers;
-	private List<Marker> parkMarkers;
-	private List<Marker> grassMarkers;
-	private List<Marker> forestMarkers;
-	private List<Marker> parkingMarkers;
+	private List<Marker> parkMarkersA;
+	private List<Marker> parkMarkersB;
+	private List<Marker> grassMarkersA;
+	private List<Marker> grassMarkersB;
+	private List<Marker> forestMarkersA;
+	private List<Marker> forestMarkersB;
+	private List<Marker> parkingMarkersA;
+	private List<Marker> parkingMarkersB;
+	
+	private Marker selectedDistrictA;
+	private Marker selectedDistrictB;
 	
 	private int detailsMapHeight;
 	
@@ -56,16 +64,73 @@ public class Main extends PApplet {
 
 	public void mouseClicked() {
 		Marker marker = this.districtMap.getFirstHitMarker(mouseX, mouseY);
-		toggleMarker(marker);
+		if(marker != null) {
+			if (marker.isSelected()) {
+				unselectDistrict(marker);
+				if(this.selectedDistrictA == null && this.selectedDistrictB != null) {
+					// Maps switchen?
+					hideAllMarkersMapA();
+					showOnlySelectedDistrictB(this.selectedDistrictB);
+				} else if(this.selectedDistrictA != null && this.selectedDistrictB == null) {
+					showOnlySelectedDistrictA(selectedDistrictA);
+					showAllMarkersMapB();
+				} else if(!districtSelected()) {
+					hideAllMarkersMapA();
+					showAllMarkersMapB();
+				}
+			} else {
+				int selected = selectDistrict(marker);
+				if(selected == 1) {
+					showOnlySelectedDistrictA(this.selectedDistrictA);
+				} else if(selected == 2) {
+					showOnlySelectedDistrictB(this.selectedDistrictB);
+				}
+				
+			}
+		}
 	}
 	
-	public void toggleMarker(Marker marker) {
-		if (marker != null) {
-			if (marker.isSelected()) {
-				marker.setSelected(false);
+	public int getSelectedDistrictCount() {
+		int count = 0;
+		if(this.selectedDistrictA != null) {
+			count++;
+		}
+		if(this.selectedDistrictB != null) {
+			count++;
+		}
+		return count;
+	}
+	
+	public boolean districtSelected() {
+		return this.selectedDistrictA != null || this.selectedDistrictB != null; 
+	}
+	
+	public boolean canSelectDistrict() {
+		return this.selectedDistrictA == null || this.selectedDistrictB == null;
+	}
+	
+	public int selectDistrict(Marker marker) {
+		int selected = 0;
+		if(canSelectDistrict()) {
+			if(this.selectedDistrictA == null) {
+				this.selectedDistrictA = marker;
+				selected = 1;
 			} else {
-				marker.setSelected(true);
+				this.selectedDistrictB = marker;
+				selected = 2;
 			}
+			marker.setSelected(true);
+		}
+		return selected;
+	}
+	
+	public void unselectDistrict(Marker marker) {
+		if(this.selectedDistrictA != null && this.selectedDistrictA == marker) {
+			this.selectedDistrictA = null;
+			marker.setSelected(false);
+		} else if(this.selectedDistrictB != null && this.selectedDistrictB == marker) {
+			this.selectedDistrictB = null;
+			marker.setSelected(false);
 		}
 	}
 	
@@ -147,22 +212,30 @@ public class Main extends PApplet {
 	}
 	
 	public void loadParks() {
-		this.parkMarkers = loadMarkers("zurich_parks.geojson", 
+		this.parkMarkersA = loadMarkers("zurich_parks.geojson", 
+				color(0, 170, 0, 127), color(0, 230, 0, 127));
+		this.parkMarkersB = loadMarkers("zurich_parks.geojson", 
 				color(0, 170, 0, 127), color(0, 230, 0, 127));
 	}
 	
 	public void loadGrass() {
-		this.grassMarkers = loadMarkers("zurich_grasflaechen.geojson",
+		this.grassMarkersA = loadMarkers("zurich_grasflaechen.geojson",
+				color(0, 220, 0, 127), color(0, 255, 0, 127));
+		this.grassMarkersB = loadMarkers("zurich_grasflaechen.geojson",
 				color(0, 220, 0, 127), color(0, 255, 0, 127));
 	}
 	
 	public void loadForest() {
-		this.forestMarkers = loadMarkers("zurich_waldflaechen.geojson",
+		this.forestMarkersA = loadMarkers("zurich_waldflaechen.geojson",
+				color(0, 70, 15, 127), color(0, 200, 40, 127));
+		this.forestMarkersB = loadMarkers("zurich_waldflaechen.geojson",
 				color(0, 70, 15, 127), color(0, 200, 40, 127));
 	}
 	
 	public void loadParking() {
-		this.parkingMarkers = loadMarkers("zurich_parkplatz.geojson",
+		this.grassMarkersA = loadMarkers("zurich_grasflaechen.geojson",
+				color(0, 220, 0, 127), color(0, 255, 0, 127));
+		this.parkingMarkersB = loadMarkers("zurich_parkplatz.geojson",
 				color(0, 75, 170, 127), color(0, 90, 200, 127));
 	}
 	
@@ -182,31 +255,114 @@ public class Main extends PApplet {
 	}
 	
 	public void addMarkersToMap() {
-		addDistrictMarkersToMap();
-		addParkMarkersToMap();
-		addGrassMarkersToMap();
-		addForestMarkersToMap();
-		//addParkingMarkersToMap();
+		addMarkersToMap(this.districtMap, this.districtMarkers);
+		addBMarkersToMap();
+		addAMarkersToMap();
+		hideAllMarkersMapA();
 	}
 	
-	public void addDistrictMarkersToMap() {
-		this.districtMap.addMarkers(this.districtMarkers);
+	public void addBMarkersToMap() {
+		addMarkersToMap(this.natureMapB, this.parkMarkersB);
+		addMarkersToMap(this.natureMapB, this.grassMarkersB);
+		addMarkersToMap(this.natureMapB, this.forestMarkersB);
+		//addMarkersToMap(this.parkingMapB, this.parkingMarkersB);
 	}
 	
-	public void addParkMarkersToMap() {
-		this.natureMapB.addMarkers(this.parkMarkers);
+	public void addAMarkersToMap() {
+		addMarkersToMap(this.natureMapA, this.parkMarkersA);
+		addMarkersToMap(this.natureMapA, this.grassMarkersA);
+		addMarkersToMap(this.natureMapA, this.forestMarkersA);
 	}
 	
-	public void addGrassMarkersToMap() {
-		this.natureMapB.addMarkers(this.grassMarkers);
+	public void addMarkersToMap(UnfoldingMap map, List<Marker> markers) {
+		map.addMarkers(markers);
 	}
 	
-	public void addForestMarkersToMap() {
-		this.natureMapB.addMarkers(this.forestMarkers);
+	public void removeMarkers(UnfoldingMap map, List<Marker> markers) {
+		MarkerManager<Marker> markerManager = map.getDefaultMarkerManager();
+		for(Marker marker : markers) {
+			markerManager.removeMarker(marker);
+		}
 	}
 	
-	public void addParkingMarkersToMap() {
-		this.parkingMapB.addMarkers(this.parkingMarkers);
+	public void removeAllMarkersMapA() {
+		removeMarkers(this.natureMapA, this.parkMarkersA);
+		removeMarkers(this.natureMapA, this.grassMarkersA);
+		removeMarkers(this.natureMapA, this.forestMarkersA);
+		//removeMarkers(this.parkingMapA, this.parkingMarkersA);
+	}
+	
+	public void removeAllMarkersMapB() {
+		removeMarkers(this.natureMapB, this.parkMarkersB);
+		removeMarkers(this.natureMapB, this.grassMarkersB);
+		removeMarkers(this.natureMapB, this.forestMarkersB);
+		//removeMarkers(this.parkingMapB, this.parkingMarkersB);
+	}
+	
+	public void showAllMarkersMapB() {
+		showAllMarkers(this.parkMarkersB);
+		showAllMarkers(this.grassMarkersB);
+		showAllMarkers(this.forestMarkersB);
+	}
+	
+	public void showAllMarkersMapA() {
+		showAllMarkers(this.parkMarkersA);
+		showAllMarkers(this.grassMarkersA);
+		showAllMarkers(this.forestMarkersA);
+	}
+	
+	public void showAllMarkers(List<Marker> markers) {
+		for(Marker marker : markers) {
+			marker.setHidden(false);
+		}
+	}
+	
+	public void hideAllMarkersMapA() {
+		hideAllMarkers(this.parkMarkersA);
+		hideAllMarkers(this.grassMarkersA);
+		hideAllMarkers(this.forestMarkersA);
+	}
+	
+	public void hideAllMarkersMapB() {
+		hideAllMarkers(this.parkMarkersB);
+		hideAllMarkers(this.grassMarkersB);
+		hideAllMarkers(this.forestMarkersB);
+	}
+	
+	public void hideAllMarkers(List<Marker> markers) {
+		for(Marker marker : markers) {
+			marker.setHidden(true);
+		}
+	}
+	
+	public void showOnlySelectedDistrictA(Marker marker) {
+		hideAllMarkersMapA();
+		showOnlySelectedMarkers(marker, this.parkMarkersA);
+		showOnlySelectedMarkers(marker, this.grassMarkersA);
+		showOnlySelectedMarkers(marker, this.forestMarkersA);
+	}
+	
+	public void showOnlySelectedDistrictB(Marker marker) {
+		hideAllMarkersMapB();
+		showOnlySelectedMarkers(marker, this.parkMarkersB);
+		showOnlySelectedMarkers(marker, this.grassMarkersB);
+		showOnlySelectedMarkers(marker, this.forestMarkersB);
+	}
+	
+	public void showOnlySelectedMarkers(Marker marker, List<Marker> markers) {
+		if (marker instanceof SimplePolygonMarker) {
+			SimplePolygonMarker poly = (SimplePolygonMarker) marker;
+			for(Marker m : markers) {
+				if(m instanceof SimplePolygonMarker) {
+					SimplePolygonMarker p = (SimplePolygonMarker) m;
+					for(Location l : p.getLocations()) {
+						if(poly.isInsideByLocation(l)) {
+							m.setHidden(false);
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	public void drawMaps() {
