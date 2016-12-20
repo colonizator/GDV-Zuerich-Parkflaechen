@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.gicentre.utils.stat.BarChart;
 
-import Marker.Property;
 import de.fhpotsdam.unfolding.*;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoJSONReader;
@@ -13,6 +12,7 @@ import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
+import marker.Property;
 
 public class HelloUnfoldingWorld extends PApplet {
 

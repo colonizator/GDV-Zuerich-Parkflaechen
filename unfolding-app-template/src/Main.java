@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import Marker.Property;
+import marker.Property;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoJSONReader;
@@ -216,6 +216,7 @@ public class Main extends PApplet {
 				this.districtMarkers.add(marker);
 			}
 		}
+		
 	}
 	
 	public void loadParks() {
