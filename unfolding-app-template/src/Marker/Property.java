@@ -1,4 +1,4 @@
-package Marker;
+package marker;
 
 public enum Property {
 
