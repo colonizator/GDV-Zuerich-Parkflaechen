@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 import Marker.Property;
@@ -207,8 +208,14 @@ public class Main extends PApplet {
 	}
 	
 	public void loadDistricts() {
-		this.districtMarkers = loadMarkers("zurich_bezirke_nopoints.geojson",
+		this.districtMarkers = new ArrayList<Marker>();
+		List<Marker> districts = loadMarkers("zurich_bezirke_nopoints.geojson",
 				color(100, 100, 100, 127), color(220,220,220,127));
+		for(Marker marker : districts) {
+			if("10".equals(marker.getStringProperty("admin_level"))) {
+				this.districtMarkers.add(marker);
+			}
+		}
 	}
 	
 	public void loadParks() {
