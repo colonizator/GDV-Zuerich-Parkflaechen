@@ -5,7 +5,10 @@ import marker.Property;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoJSONReader;
+import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.geo.Location;
+import de.fhpotsdam.unfolding.interactions.KeyboardHandler;
+import de.fhpotsdam.unfolding.interactions.MouseHandler;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
@@ -16,6 +19,7 @@ import processing.core.PApplet;
 public class Main extends PApplet {
 
 	private final Location ZURICH_LOCATION = new Location(47.3686f, 8.5392f);
+	private final int STANDARD_ZOOM_LEVEL = 12;
 	//in km
 	private final float MAX_PANNING_DISTANCE = 10f;
 	private final int SPACING_TOP = 50;
@@ -27,8 +31,12 @@ public class Main extends PApplet {
 	private UnfoldingMap natureMapB;
 	private UnfoldingMap parkingMapA;
 	private UnfoldingMap parkingMapB;
+	private List<UnfoldingMap> mapsA;
+	private List<UnfoldingMap> mapsB;
 	
 	private List<Marker> districtMarkers;
+	private List<Marker> districtMarkersA;
+	private List<Marker> districtMarkersB;
 	private List<Marker> parkMarkersA;
 	private List<Marker> parkMarkersB;
 	private List<Marker> grassMarkersA;
@@ -43,6 +51,9 @@ public class Main extends PApplet {
 	
 	private int detailsMapHeight;
 	
+	private EventDispatcher eventDispatcherA;
+	private EventDispatcher eventDispatcherB;
+	
 	public static void main(String[] args) {
 		PApplet.main(new String[] { Main.class.getName() });
 	}
@@ -52,10 +63,43 @@ public class Main extends PApplet {
 	}
 	
 	public void setup() {
+		this.mapsA = new ArrayList<UnfoldingMap>();
+		this.mapsB = new ArrayList<UnfoldingMap>();
 		this.detailsMapHeight = (height-SPACING_TOP)/2;
+		this.eventDispatcherA = new EventDispatcher();
+		this.eventDispatcherB = new EventDispatcher();
+		
 		initMaps();
 		loadData();
 		addMarkersToMap();
+		
+		MouseHandler mouseHandlerA = new MouseHandler(this, mapsA);
+		//KeyboardHandler keyboardHandlerA = new KeyboardHandler(this, mapsA);
+		this.eventDispatcherA.addBroadcaster(mouseHandlerA);
+		//this.eventDispatcherA.addBroadcaster(keyboardHandlerA);
+		this.eventDispatcherA.register(this.natureMapA, "pan", 
+				this.parkingMapA.getId(), this.natureMapA.getId());
+		this.eventDispatcherA.register(this.parkingMapA, "pan", 
+				this.natureMapA.getId(), this.parkingMapA.getId());
+		this.eventDispatcherA.register(this.natureMapA, "zoom", 
+				this.parkingMapA.getId(), this.natureMapA.getId());
+		this.eventDispatcherA.register(this.parkingMapA, "zoom", 
+				this.natureMapA.getId(), this.parkingMapA.getId());
+
+		
+		MouseHandler mouseHandlerB = new MouseHandler(this, mapsB);
+		//KeyboardHandler keyboardHandlerB = new KeyboardHandler(this, mapsB);
+		this.eventDispatcherB.addBroadcaster(mouseHandlerB);
+		//this.eventDispatcherB.addBroadcaster(keyboardHandlerB);
+		this.eventDispatcherB.register(this.natureMapB, "pan", 
+				this.parkingMapB.getId(), this.natureMapB.getId());
+		this.eventDispatcherB.register(this.parkingMapB, "pan",
+				this.natureMapB.getId(), this.parkingMapB.getId());
+		this.eventDispatcherB.register(this.natureMapB, "zoom", 
+				this.parkingMapB.getId(), this.natureMapB.getId());
+		this.eventDispatcherB.register(this.parkingMapB, "zoom",
+				this.natureMapB.getId(), this.parkingMapB.getId());
+		
 	}
 	
 	public void draw() {
@@ -72,23 +116,44 @@ public class Main extends PApplet {
 					// Maps switchen?
 					hideAllMarkersMapA();
 					showOnlySelectedDistrictB(this.selectedDistrictB);
+					switchMaps();
+					showAllMarkersMapB();
+					Marker tmp = this.selectedDistrictA;
+					this.selectedDistrictA = this.selectedDistrictB;
+					this.selectedDistrictB = null;
+					this.selectedDistrictB = tmp;
+					this.natureMapA.zoomAndPanToFit(this.selectedDistrictA);
+					this.parkingMapA.zoomAndPanToFit(this.selectedDistrictA);
+					this.natureMapB.zoomAndPanTo(STANDARD_ZOOM_LEVEL, ZURICH_LOCATION);
+					this.parkingMapB.zoomAndPanTo(STANDARD_ZOOM_LEVEL, ZURICH_LOCATION);
 				} else if(this.selectedDistrictA != null && this.selectedDistrictB == null) {
 					showOnlySelectedDistrictA(selectedDistrictA);
 					showAllMarkersMapB();
+					this.natureMapB.zoomAndPanTo(STANDARD_ZOOM_LEVEL, ZURICH_LOCATION);
+					this.parkingMapB.zoomAndPanTo(STANDARD_ZOOM_LEVEL, ZURICH_LOCATION);
 				} else if(!districtSelected()) {
 					hideAllMarkersMapA();
 					showAllMarkersMapB();
+					this.natureMapA.zoomAndPanTo(STANDARD_ZOOM_LEVEL, ZURICH_LOCATION);
+					this.parkingMapA.zoomAndPanTo(STANDARD_ZOOM_LEVEL, ZURICH_LOCATION);
+					this.natureMapB.zoomAndPanTo(STANDARD_ZOOM_LEVEL, ZURICH_LOCATION);
+					this.parkingMapB.zoomAndPanTo(STANDARD_ZOOM_LEVEL, ZURICH_LOCATION);
 				}
 			} else {
 				int selected = selectDistrict(marker);
 				if(selected == 1) {
 					showOnlySelectedDistrictA(this.selectedDistrictA);
+					this.natureMapA.zoomAndPanToFit(this.selectedDistrictA);
+					this.parkingMapA.zoomAndPanToFit(this.selectedDistrictA);
 				} else if(selected == 2) {
 					showOnlySelectedDistrictB(this.selectedDistrictB);
+					this.natureMapB.zoomAndPanToFit(this.selectedDistrictB);
+					this.parkingMapB.zoomAndPanToFit(this.selectedDistrictB);
 				}
 				
 			}
 		}
+		
 	}
 	
 	public int getSelectedDistrictCount() {
@@ -146,9 +211,9 @@ public class Main extends PApplet {
 	public void initDistrictMap() {
 		this.districtMap = new UnfoldingMap(this, "districtMap", 
 				0, SPACING_TOP, width/3, height);
-		this.districtMap.zoomTo(13);
+		this.districtMap.zoomTo(STANDARD_ZOOM_LEVEL);
 		this.districtMap.panTo(ZURICH_LOCATION);
-		this.districtMap.setZoomRange(12, 18);
+		this.districtMap.setZoomRange(11, 18);
 		this.districtMap.setPanningRestriction(ZURICH_LOCATION, MAX_PANNING_DISTANCE);
 		MapUtils.createDefaultEventDispatcher(this, this.districtMap);
 	}
@@ -157,22 +222,24 @@ public class Main extends PApplet {
 		this.natureMapA = new UnfoldingMap(this, "natureMapA", 
 				width/3 + SPACING_MAP_WIDTH, SPACING_TOP, 
 				width/3, this.detailsMapHeight - (SPACING_MAP_HEIGHT/2));
-		this.natureMapA.zoomTo(13);
+		this.natureMapA.zoomTo(STANDARD_ZOOM_LEVEL);
 		this.natureMapA.panTo(ZURICH_LOCATION);
 		this.natureMapA.setZoomRange(12, 18);
 		this.natureMapA.setPanningRestriction(ZURICH_LOCATION, MAX_PANNING_DISTANCE);
-		MapUtils.createDefaultEventDispatcher(this, this.natureMapA);
+		//MapUtils.createDefaultEventDispatcher(this, this.natureMapA);
+		this.mapsA.add(this.natureMapA);
 	}
 	
 	public void initNatureMapB() {
 		this.natureMapB = new UnfoldingMap(this, "natureMapB", 
 				width/3*2 + 2*SPACING_MAP_WIDTH, SPACING_TOP, 
 				width/3, this.detailsMapHeight - (SPACING_MAP_HEIGHT/2));
-		this.natureMapB.zoomTo(13);
+		this.natureMapB.zoomTo(STANDARD_ZOOM_LEVEL);
 		this.natureMapB.panTo(ZURICH_LOCATION);
 		this.natureMapB.setZoomRange(12, 18);
 		this.natureMapB.setPanningRestriction(ZURICH_LOCATION, MAX_PANNING_DISTANCE);
-		MapUtils.createDefaultEventDispatcher(this, this.natureMapB);
+		//MapUtils.createDefaultEventDispatcher(this, this.natureMapB);
+		this.mapsB.add(this.natureMapB);
 	}
 	
 	public void initParkingMapA() {
@@ -180,11 +247,12 @@ public class Main extends PApplet {
 				width/3 + SPACING_MAP_WIDTH, 
 				SPACING_TOP + this.detailsMapHeight + (SPACING_MAP_HEIGHT/2), 
 				width/3, this.detailsMapHeight - (SPACING_MAP_HEIGHT/2));
-		this.parkingMapA.zoomTo(13);
+		this.parkingMapA.zoomTo(STANDARD_ZOOM_LEVEL);
 		this.parkingMapA.panTo(ZURICH_LOCATION);
 		this.parkingMapA.setZoomRange(12, 18);
 		this.parkingMapA.setPanningRestriction(ZURICH_LOCATION, MAX_PANNING_DISTANCE);
-		MapUtils.createDefaultEventDispatcher(this, this.parkingMapA);
+		//MapUtils.createDefaultEventDispatcher(this, this.parkingMapA);
+		this.mapsA.add(this.parkingMapA);
 	}
 	
 	public void initParkingMapB() {
@@ -192,15 +260,18 @@ public class Main extends PApplet {
 				width/3*2 + 2*SPACING_MAP_WIDTH, 
 				SPACING_TOP + this.detailsMapHeight + (SPACING_MAP_HEIGHT/2), 
 				width/3, this.detailsMapHeight - (SPACING_MAP_HEIGHT/2));
-		this.parkingMapB.zoomTo(13);
+		this.parkingMapB.zoomTo(STANDARD_ZOOM_LEVEL);
 		this.parkingMapB.panTo(ZURICH_LOCATION);
 		this.parkingMapB.setZoomRange(12, 18);
 		this.parkingMapB.setPanningRestriction(ZURICH_LOCATION, MAX_PANNING_DISTANCE);
-		MapUtils.createDefaultEventDispatcher(this, this.parkingMapB);
+		//MapUtils.createDefaultEventDispatcher(this, this.parkingMapB);
+		this.mapsB.add(this.parkingMapB);
 	}
 	
 	public void loadData() {
 		loadDistricts();
+		loadDistrictsA();
+		loadDistrictsB();
 		loadParks();
 		loadGrass();
 		loadForest();
@@ -214,6 +285,30 @@ public class Main extends PApplet {
 		for(Marker marker : districts) {
 			if("10".equals(marker.getStringProperty("admin_level"))) {
 				this.districtMarkers.add(marker);
+			}
+		}
+		
+	}
+	
+	public void loadDistrictsA() {
+		this.districtMarkersA = new ArrayList<Marker>();
+		List<Marker> districts = loadMarkers("zurich_bezirke_nopoints.geojson",
+				color(100, 100, 100, 127), color(220,220,220,127));
+		for(Marker marker : districts) {
+			if("10".equals(marker.getStringProperty("admin_level"))) {
+				this.districtMarkersA.add(marker);
+			}
+		}
+		
+	}
+	
+	public void loadDistrictsB() {
+		this.districtMarkersB = new ArrayList<Marker>();
+		List<Marker> districts = loadMarkers("zurich_bezirke_nopoints.geojson",
+				color(100, 100, 100, 127), color(220,220,220,127));
+		for(Marker marker : districts) {
+			if("10".equals(marker.getStringProperty("admin_level"))) {
+				this.districtMarkersB.add(marker);
 			}
 		}
 		
@@ -274,12 +369,17 @@ public class Main extends PApplet {
 		addMarkersToMap(this.natureMapB, this.grassMarkersB);
 		addMarkersToMap(this.natureMapB, this.forestMarkersB);
 		//addMarkersToMap(this.parkingMapB, this.parkingMarkersB);
+		addMarkersToMap(this.natureMapB, this.districtMarkersB);
+		hideAllMarkers(this.districtMarkersA);
 	}
 	
 	public void addAMarkersToMap() {
 		addMarkersToMap(this.natureMapA, this.parkMarkersA);
 		addMarkersToMap(this.natureMapA, this.grassMarkersA);
 		addMarkersToMap(this.natureMapA, this.forestMarkersA);
+		
+		addMarkersToMap(this.natureMapA, this.districtMarkersA);
+		hideAllMarkers(this.districtMarkersB);
 	}
 	
 	public void addMarkersToMap(UnfoldingMap map, List<Marker> markers) {
@@ -371,6 +471,32 @@ public class Main extends PApplet {
 				}
 			}
 		}
+	}
+	
+	public void switchMaps() {
+		switchMaps(this.parkMarkersA, this.parkMarkersB);
+		switchMaps(this.grassMarkersA, this.grassMarkersB);
+		switchMaps(this.forestMarkersA, this.forestMarkersB);
+	}
+	
+	public void switchMaps(List<Marker> markers1, List<Marker> markers2) {
+		for(Marker marker2 : markers2) {
+			for(Marker marker1 : markers1) {
+				if(equalLocations(marker1.getLocation(), marker2.getLocation())) {
+					if(!marker2.isHidden()) {
+						marker1.setHidden(false);
+					}
+				}
+			}
+		}
+	}
+	
+	public boolean equalLocations(Location locations1, Location locations2) {
+		boolean equal = false;
+		if(locations1.equals(locations2)) {
+			equal = true;
+		}
+		return equal;
 	}
 	
 	public void drawMaps() {
