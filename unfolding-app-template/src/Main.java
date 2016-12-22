@@ -275,7 +275,7 @@ public class Main extends PApplet {
 		loadParks();
 		loadGrass();
 		loadForest();
-		//loadParking();
+		loadParking();
 	}
 	
 	public void loadDistricts() {
@@ -336,10 +336,17 @@ public class Main extends PApplet {
 	}
 	
 	public void loadParking() {
-		this.grassMarkersA = loadMarkers("zurich_grasflaechen.geojson",
-				color(0, 220, 0, 127), color(0, 255, 0, 127));
-		this.parkingMarkersB = loadMarkers("zurich_parkplatz.geojson",
-				color(0, 75, 170, 127), color(0, 90, 200, 127));
+		List<Feature> featuresA = GeoJSONReader.loadData(this, "zurich_parkplaetze.geojson");
+		List<Feature> featuresB = GeoJSONReader.loadData(this, "zurich_parkplaetze.geojson");
+		this.parkingMarkersA = MapUtils.createSimpleMarkers(featuresA);
+		this.parkingMarkersB = MapUtils.createSimpleMarkers(featuresB);
+		
+		for(int i = 0; i < this.parkingMarkersA.size(); i++) {
+			this.parkingMarkersA.get(i).setStrokeColor(0);
+			this.parkingMarkersA.get(i).setColor(color(0, 160, 227, 220));
+			this.parkingMarkersB.get(i).setColor(color(0, 160, 227, 220));
+			
+		}
 	}
 	
 	private List<Marker> loadMarkers(String fileName, int color, int highlight) {
@@ -368,7 +375,7 @@ public class Main extends PApplet {
 		addMarkersToMap(this.natureMapB, this.parkMarkersB);
 		addMarkersToMap(this.natureMapB, this.grassMarkersB);
 		addMarkersToMap(this.natureMapB, this.forestMarkersB);
-		//addMarkersToMap(this.parkingMapB, this.parkingMarkersB);
+		addMarkersToMap(this.parkingMapB, this.parkingMarkersB);
 		addMarkersToMap(this.natureMapB, this.districtMarkersB);
 		hideAllMarkers(this.districtMarkersA);
 	}
@@ -377,7 +384,7 @@ public class Main extends PApplet {
 		addMarkersToMap(this.natureMapA, this.parkMarkersA);
 		addMarkersToMap(this.natureMapA, this.grassMarkersA);
 		addMarkersToMap(this.natureMapA, this.forestMarkersA);
-		
+		addMarkersToMap(this.parkingMapA, this.parkingMarkersA);
 		addMarkersToMap(this.natureMapA, this.districtMarkersA);
 		hideAllMarkers(this.districtMarkersB);
 	}
@@ -386,6 +393,7 @@ public class Main extends PApplet {
 		map.addMarkers(markers);
 	}
 	
+	/*
 	public void removeMarkers(UnfoldingMap map, List<Marker> markers) {
 		MarkerManager<Marker> markerManager = map.getDefaultMarkerManager();
 		for(Marker marker : markers) {
@@ -397,26 +405,29 @@ public class Main extends PApplet {
 		removeMarkers(this.natureMapA, this.parkMarkersA);
 		removeMarkers(this.natureMapA, this.grassMarkersA);
 		removeMarkers(this.natureMapA, this.forestMarkersA);
-		//removeMarkers(this.parkingMapA, this.parkingMarkersA);
+		removeMarkers(this.parkingMapA, this.parkingMarkersA);
 	}
 	
 	public void removeAllMarkersMapB() {
 		removeMarkers(this.natureMapB, this.parkMarkersB);
 		removeMarkers(this.natureMapB, this.grassMarkersB);
 		removeMarkers(this.natureMapB, this.forestMarkersB);
-		//removeMarkers(this.parkingMapB, this.parkingMarkersB);
+		removeMarkers(this.parkingMapB, this.parkingMarkersB);
 	}
+	*/
 	
 	public void showAllMarkersMapB() {
 		showAllMarkers(this.parkMarkersB);
 		showAllMarkers(this.grassMarkersB);
 		showAllMarkers(this.forestMarkersB);
+		showAllMarkers(this.parkingMarkersB);
 	}
 	
 	public void showAllMarkersMapA() {
 		showAllMarkers(this.parkMarkersA);
 		showAllMarkers(this.grassMarkersA);
 		showAllMarkers(this.forestMarkersA);
+		showAllMarkers(this.parkingMarkersA);
 	}
 	
 	public void showAllMarkers(List<Marker> markers) {
@@ -429,12 +440,14 @@ public class Main extends PApplet {
 		hideAllMarkers(this.parkMarkersA);
 		hideAllMarkers(this.grassMarkersA);
 		hideAllMarkers(this.forestMarkersA);
+		hideAllMarkers(this.parkingMarkersA);
 	}
 	
 	public void hideAllMarkersMapB() {
 		hideAllMarkers(this.parkMarkersB);
 		hideAllMarkers(this.grassMarkersB);
 		hideAllMarkers(this.forestMarkersB);
+		hideAllMarkers(this.parkingMarkersB);
 	}
 	
 	public void hideAllMarkers(List<Marker> markers) {
@@ -448,6 +461,7 @@ public class Main extends PApplet {
 		showOnlySelectedMarkers(marker, this.parkMarkersA);
 		showOnlySelectedMarkers(marker, this.grassMarkersA);
 		showOnlySelectedMarkers(marker, this.forestMarkersA);
+		showOnlySelectedMarkers(marker, this.parkingMarkersA);
 	}
 	
 	public void showOnlySelectedDistrictB(Marker marker) {
@@ -455,6 +469,7 @@ public class Main extends PApplet {
 		showOnlySelectedMarkers(marker, this.parkMarkersB);
 		showOnlySelectedMarkers(marker, this.grassMarkersB);
 		showOnlySelectedMarkers(marker, this.forestMarkersB);
+		showOnlySelectedMarkers(marker, this.parkingMarkersB);
 	}
 	
 	public void showOnlySelectedMarkers(Marker marker, List<Marker> markers) {
@@ -468,6 +483,10 @@ public class Main extends PApplet {
 							m.setHidden(false);
 						}
 					}
+				} else {
+					if(poly.isInsideByLocation(m.getLocation())) {
+						m.setHidden(false);
+					}
 				}
 			}
 		}
@@ -477,6 +496,7 @@ public class Main extends PApplet {
 		switchMaps(this.parkMarkersA, this.parkMarkersB);
 		switchMaps(this.grassMarkersA, this.grassMarkersB);
 		switchMaps(this.forestMarkersA, this.forestMarkersB);
+		switchMaps(this.parkingMarkersA, this.parkingMarkersB);
 	}
 	
 	public void switchMaps(List<Marker> markers1, List<Marker> markers2) {
