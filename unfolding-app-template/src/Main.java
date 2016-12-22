@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import marker.ParkingMarker;
 import marker.Property;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
@@ -324,16 +325,11 @@ public class Main extends PApplet {
 	}
 
 	public void loadParking() {
-		List<Feature> featuresA = GeoJSONReader.loadData(this, "zurich_parkplaetze.geojson");
-		List<Feature> featuresB = GeoJSONReader.loadData(this, "zurich_parkplaetze.geojson");
-
-		//BUG
-		MarkerFactory markerFactoryA = new MarkerFactory();
-		MarkerFactory markerFactoryB = new MarkerFactory();
-		markerFactoryA.setPointClass(FasterPointMarker.class);
-		markerFactoryB.setPointClass(FasterPointMarker.class);
-		this.parkingMarkersA = markerFactoryA.createMarkers(featuresA);
-		this.parkingMarkersB = markerFactoryB.createMarkers(featuresB);
+		List<Feature> features = GeoJSONReader.loadData(this, "zurich_parkplaetze.geojson");
+		MarkerFactory markerFactory = new MarkerFactory();
+		markerFactory.setPointClass(ParkingMarker.class);
+		this.parkingMarkersA = markerFactory.createMarkers(features);
+		this.parkingMarkersB = markerFactory.createMarkers(features);
 	}
 
 	private List<Marker> loadMarkers(String fileName, int color, int highlight) {
