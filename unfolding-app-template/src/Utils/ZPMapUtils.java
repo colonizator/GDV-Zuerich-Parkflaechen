@@ -10,10 +10,11 @@ import zp.Const;
 public class ZPMapUtils {
 
 	public static UnfoldingMap initDistrictMap(PApplet pApplet, int width, int height) {
+		int detailsMapHeight = (height - Const.SPACING_TOP) / 2;
 		int mapX = 0;
 		int mapY = Const.SPACING_TOP;
 		int mapWidth = width / 3;
-		int mapHeight = height;
+		int mapHeight = detailsMapHeight - (Const.SPACING_MAP_HEIGHT / 2);
 		
 		UnfoldingMap map = initBigMap(pApplet, mapX, mapY, mapWidth, mapHeight);
 		return map;

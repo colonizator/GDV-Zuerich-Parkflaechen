@@ -65,7 +65,7 @@ public class ZPDataUtils {
 		markerFactory.setPointClass(ParkingMarker.class);
 		List<Marker> parkingMarkers = markerFactory.createMarkers(features);
 		for(Marker marker : parkingMarkers) {
-			marker.setProperty(Property.AREA.toString(), (2.3*5)/10); // 10 ist ein Platzhalter für den Maßstab
+			marker.setProperty(Property.AREA.toString(), (2.3f*5)/10); // 10 ist ein Platzhalter für den Maßstab
 		}
 		return parkingMarkers;
 	}

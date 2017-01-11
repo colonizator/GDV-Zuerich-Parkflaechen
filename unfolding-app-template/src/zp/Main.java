@@ -2,9 +2,12 @@ package zp;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.gicentre.utils.stat.BarChart;
+
 import Utils.ZPDataUtils;
 import Utils.ZPMapUtils;
 import Utils.ZPMarkerUtils;
+import charts.NatureVsParkingChart;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.geo.Location;
@@ -13,6 +16,7 @@ import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
 import marker.DistrictMarker;
 import marker.ParkingMarker;
+import marker.Property;
 import processing.core.PApplet;
 
 public class Main extends PApplet {
@@ -39,11 +43,15 @@ public class Main extends PApplet {
 
 	private Marker selectedDistrictA;
 	private Marker selectedDistrictB;
+	private String selectedDistrictAName;
+	private String selectedDistrictBName;
 	
 	private EventDispatcher eventDispatcherA;
 	private EventDispatcher eventDispatcherB;
 
 	private DistrictMarker hoveredDistrict;
+	
+	private NatureVsParkingChart natureVsParkingChart;
 	
 	public static void main(String[] args) {
 		PApplet.main(new String[] { Main.class.getName() });
@@ -57,6 +65,8 @@ public class Main extends PApplet {
 	public void setup() {
 		this.mapsA = new ArrayList<UnfoldingMap>();
 		this.mapsB = new ArrayList<UnfoldingMap>();
+		this.selectedDistrictAName = "";
+		this.selectedDistrictBName = "Z\u00FCrich";
 		this.eventDispatcherA = new EventDispatcher();
 		this.eventDispatcherB = new EventDispatcher();
 
@@ -78,11 +88,38 @@ public class Main extends PApplet {
 		this.eventDispatcherB.register(this.parkingMapB, "pan", this.natureMapB.getId(), this.parkingMapB.getId());
 		this.eventDispatcherB.register(this.natureMapB, "zoom", this.parkingMapB.getId(), this.natureMapB.getId());
 		this.eventDispatcherB.register(this.parkingMapB, "zoom", this.natureMapB.getId(), this.parkingMapB.getId());
+	
+		this.natureVsParkingChart = new NatureVsParkingChart(this, parkingMarkersA, 
+				parkingMarkersB, parkMarkersA, parkMarkersB, forestMarkersA, 
+				forestMarkersB, grassMarkersA, grassMarkersB);
 	}
 
 	public void draw() {
 		background(0);
 		drawMaps();
+		
+		int detailsMapHeight = (height - Const.SPACING_TOP) / 2;
+		int diagramX = 0;
+		int diagramY = Const.SPACING_TOP + detailsMapHeight + (Const.SPACING_MAP_HEIGHT / 2);
+		int diagramWidth = width / 3;
+		int diagramHeight = detailsMapHeight - (Const.SPACING_MAP_HEIGHT / 2);
+		fill(249);
+		rect(diagramX, diagramY, diagramWidth, diagramHeight);
+		
+		fill(255);
+		this.natureVsParkingChart.draw(width, height);
+		textSize(26);
+		textFont(createFont("Segoe UI", 26));
+		text("Stadtbezirke", 
+				50, 
+				35);
+		text(this.selectedDistrictAName, 
+				(width / 3) + Const.SPACING_MAP_WIDTH + 50, 
+				35);
+		text(this.selectedDistrictBName, 
+				(width*2 / 3) + 2*Const.SPACING_MAP_WIDTH + 50, 
+				35);
+		textFont(createFont("Segoe UI Light", 14));
 		
 		ZPMarkerUtils.showParkingIcons(this.parkingMapA, this.parkingMarkersA, 14);
 		ZPMarkerUtils.showParkingIcons(this.parkingMapB, this.parkingMarkersB, 14);
@@ -108,11 +145,31 @@ public class Main extends PApplet {
 						this.parkingMapA.zoomAndPanToFit(this.selectedDistrictA);
 						this.natureMapB.zoomAndPanTo(Const.STANDARD_ZOOM_LEVEL, Const.ZURICH_LOCATION);
 						this.parkingMapB.zoomAndPanTo(Const.STANDARD_ZOOM_LEVEL, Const.ZURICH_LOCATION);
+						
+						this.selectedDistrictAName = (String) 
+								this.selectedDistrictA.getProperty("name");
+						this.selectedDistrictBName = "Z\u00FCrich";
+						
+						this.natureVsParkingChart.setMapASelected(true);
+						this.natureVsParkingChart.setMapBSelected(false);
+						this.natureVsParkingChart.setDistrictMapAName((String) 
+								this.selectedDistrictA.getProperty("name"));
+						this.natureVsParkingChart.init();
 					} else if (this.selectedDistrictA != null && this.selectedDistrictB == null) {
 						showOnlySelectedDistrictA(selectedDistrictA);
 						showAllMarkersMapB();
 						this.natureMapB.zoomAndPanTo(Const.STANDARD_ZOOM_LEVEL, Const.ZURICH_LOCATION);
 						this.parkingMapB.zoomAndPanTo(Const.STANDARD_ZOOM_LEVEL, Const.ZURICH_LOCATION);
+						
+						this.selectedDistrictAName = (String) 
+								this.selectedDistrictA.getProperty("name");
+						this.selectedDistrictBName = "Z\u00FCrich";
+						
+						this.natureVsParkingChart.setMapASelected(true);
+						this.natureVsParkingChart.setMapBSelected(false);
+						this.natureVsParkingChart.setDistrictMapAName(
+								this.selectedDistrictAName);
+						this.natureVsParkingChart.init();
 					} else if (!districtSelected()) {
 						hideAllMarkersMapA();
 						showAllMarkersMapB();
@@ -120,6 +177,13 @@ public class Main extends PApplet {
 						this.parkingMapA.zoomAndPanTo(Const.STANDARD_ZOOM_LEVEL, Const.ZURICH_LOCATION);
 						this.natureMapB.zoomAndPanTo(Const.STANDARD_ZOOM_LEVEL, Const.ZURICH_LOCATION);
 						this.parkingMapB.zoomAndPanTo(Const.STANDARD_ZOOM_LEVEL, Const.ZURICH_LOCATION);
+						
+						this.selectedDistrictAName = "";
+						this.selectedDistrictBName = "Z\u00FCrich";
+						
+						this.natureVsParkingChart.setMapASelected(false);
+						this.natureVsParkingChart.setMapBSelected(false);
+						this.natureVsParkingChart.init();
 					}
 				} else {
 					int selected = selectDistrict(marker);
@@ -127,10 +191,33 @@ public class Main extends PApplet {
 						showOnlySelectedDistrictA(this.selectedDistrictA);
 						this.natureMapA.zoomAndPanToFit(this.selectedDistrictA);
 						this.parkingMapA.zoomAndPanToFit(this.selectedDistrictA);
+						
+						this.selectedDistrictAName = (String) 
+								this.selectedDistrictA.getProperty("name");
+						this.selectedDistrictBName = "Z\u00FCrich";
+						
+						this.natureVsParkingChart.setMapASelected(true);
+						this.natureVsParkingChart.setMapBSelected(false);
+						this.natureVsParkingChart.setDistrictMapAName(
+								this.selectedDistrictAName);
+						this.natureVsParkingChart.init();
 					} else if (selected == 2) {
 						showOnlySelectedDistrictB(this.selectedDistrictB);
 						this.natureMapB.zoomAndPanToFit(this.selectedDistrictB);
 						this.parkingMapB.zoomAndPanToFit(this.selectedDistrictB);
+						
+						this.selectedDistrictAName = (String) 
+								this.selectedDistrictA.getProperty("name");
+						this.selectedDistrictBName = (String) 
+								this.selectedDistrictB.getProperty("name");
+						
+						this.natureVsParkingChart.setMapASelected(true);
+						this.natureVsParkingChart.setMapBSelected(true);
+						this.natureVsParkingChart.setDistrictMapAName(
+								this.selectedDistrictAName);
+						this.natureVsParkingChart.setDistrictMapBName(
+								this.selectedDistrictBName);
+						this.natureVsParkingChart.init();
 					}
 
 				}
