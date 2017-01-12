@@ -1,25 +1,17 @@
 package zp;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import org.gicentre.utils.stat.BarChart;
 
 import Utils.ZPDataUtils;
 import Utils.ZPMapUtils;
 import Utils.ZPMarkerUtils;
 import charts.NatureVsParkingChart;
 import de.fhpotsdam.unfolding.UnfoldingMap;
-import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.geo.Location;
-import de.fhpotsdam.unfolding.interactions.MouseHandler;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
+import events.CustomEventDispatcher;
 import marker.DistrictMarker;
-import marker.ParkingMarker;
-import marker.Property;
 import processing.core.PApplet;
-import processing.core.PImage;
 
 public class Main extends PApplet {
 
@@ -28,8 +20,6 @@ public class Main extends PApplet {
 	private UnfoldingMap natureMapB;
 	private UnfoldingMap parkingMapA;
 	private UnfoldingMap parkingMapB;
-	private List<UnfoldingMap> mapsA;
-	private List<UnfoldingMap> mapsB;
 
 	private List<Marker> districtMarkers;
 	private List<Marker> districtMarkersA;
@@ -47,15 +37,10 @@ public class Main extends PApplet {
 	private Marker selectedDistrictB;
 	private String selectedDistrictAName;
 	private String selectedDistrictBName;
-	
-	private EventDispatcher eventDispatcherA;
-	private EventDispatcher eventDispatcherB;
 
 	private DistrictMarker hoveredDistrict;
 	
 	private NatureVsParkingChart natureVsParkingChart;
-	
-	private PImage filterIcon;
 	
 	int detailsMapHeight;
 	int diagramX;
@@ -73,32 +58,15 @@ public class Main extends PApplet {
 	}
 
 	public void setup() {
-		this.mapsA = new ArrayList<UnfoldingMap>();
-		this.mapsB = new ArrayList<UnfoldingMap>();
 		this.selectedDistrictAName = "";
 		this.selectedDistrictBName = "Z\u00FCrich";
-		this.eventDispatcherA = new EventDispatcher();
-		this.eventDispatcherB = new EventDispatcher();
 
 		initMaps();
 		loadData();
 		setMarkerIcons();
 		addMarkersToMap();
-
-		MouseHandler mouseHandlerA = new MouseHandler(this, mapsA);
-		this.eventDispatcherA.addBroadcaster(mouseHandlerA);
-		this.eventDispatcherA.register(this.natureMapA, "pan", this.parkingMapA.getId(), this.natureMapA.getId());
-		this.eventDispatcherA.register(this.parkingMapA, "pan", this.natureMapA.getId(), this.parkingMapA.getId());
-		this.eventDispatcherA.register(this.natureMapA, "zoom", this.parkingMapA.getId(), this.natureMapA.getId());
-		this.eventDispatcherA.register(this.parkingMapA, "zoom", this.natureMapA.getId(), this.parkingMapA.getId());
-
-		MouseHandler mouseHandlerB = new MouseHandler(this, mapsB);
-		this.eventDispatcherB.addBroadcaster(mouseHandlerB);
-		this.eventDispatcherB.register(this.natureMapB, "pan", this.parkingMapB.getId(), this.natureMapB.getId());
-		this.eventDispatcherB.register(this.parkingMapB, "pan", this.natureMapB.getId(), this.parkingMapB.getId());
-		this.eventDispatcherB.register(this.natureMapB, "zoom", this.parkingMapB.getId(), this.natureMapB.getId());
-		this.eventDispatcherB.register(this.parkingMapB, "zoom", this.natureMapB.getId(), this.parkingMapB.getId());
-	
+		registerMapEvents();
+		
 		this.natureVsParkingChart = new NatureVsParkingChart(this, parkingMarkersA, 
 				parkingMarkersB, parkMarkersA, parkMarkersB, forestMarkersA, 
 				forestMarkersB, grassMarkersA, grassMarkersB);
@@ -108,8 +76,6 @@ public class Main extends PApplet {
 		diagramY = Const.SPACING_TOP + detailsMapHeight + (Const.SPACING_MAP_HEIGHT / 2);
 		diagramWidth = width / 3;
 		diagramHeight = detailsMapHeight - (Const.SPACING_MAP_HEIGHT / 2);
-		
-		this.filterIcon = loadImage("img/filter.png");
 	}
 
 	public void draw() {
@@ -137,7 +103,6 @@ public class Main extends PApplet {
 		ZPMarkerUtils.showParkingIcons(this.parkingMapA, this.parkingMarkersA, 14);
 		ZPMarkerUtils.showParkingIcons(this.parkingMapB, this.parkingMarkersB, 14);
 		
-		//image(this.filterIcon, 50, 50);
 	}
 
 	public void mouseClicked() {
@@ -316,10 +281,10 @@ public class Main extends PApplet {
 
 	public void initMaps() {
 		this.districtMap = ZPMapUtils.initDistrictMap(this, width, height);
-		this.natureMapA = ZPMapUtils.initNatureMapA(this, width, height, this.mapsA);
-		this.natureMapB = ZPMapUtils.initNatureMapB(this, width, height, this.mapsB);
-		this.parkingMapA = ZPMapUtils.initParkingMapA(this, width, height, this.mapsA);
-		this.parkingMapB = ZPMapUtils.initParkingMapB(this, width, height, this.mapsB);
+		this.natureMapA = ZPMapUtils.initNatureMapA(this, width, height);
+		this.natureMapB = ZPMapUtils.initNatureMapB(this, width, height);
+		this.parkingMapA = ZPMapUtils.initParkingMapA(this, width, height);
+		this.parkingMapB = ZPMapUtils.initParkingMapB(this, width, height);
 	}
 
 	public void loadData() {
@@ -379,6 +344,13 @@ public class Main extends PApplet {
 		map.addMarkers(markers);
 	}
 
+	public void registerMapEvents() {
+		new CustomEventDispatcher(this, this.natureMapA, this.parkingMapA)
+			.registerAllEvents();
+		new CustomEventDispatcher(this, this.natureMapB, this.parkingMapB)
+			.registerAllEvents();
+	}
+	
 	public void showAllMarkersMapB() {
 		showAllMarkers(this.parkMarkersB);
 		showAllMarkers(this.grassMarkersB);

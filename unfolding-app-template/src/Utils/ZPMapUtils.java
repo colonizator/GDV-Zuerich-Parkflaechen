@@ -1,7 +1,5 @@
 package Utils;
 
-import java.util.List;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import processing.core.PApplet;
@@ -20,8 +18,7 @@ public class ZPMapUtils {
 		return map;
 	}
 	
-	public static UnfoldingMap initNatureMapA(PApplet pApplet, int width, int height, 
-			List<UnfoldingMap> maps) {
+	public static UnfoldingMap initNatureMapA(PApplet pApplet, int width, int height) {
 		int detailsMapHeight = (height - Const.SPACING_TOP) / 2;
 		int mapX = width / 3 + Const.SPACING_MAP_WIDTH;
 		int mapY = Const.SPACING_TOP;
@@ -29,12 +26,10 @@ public class ZPMapUtils {
 		int mapHeight = detailsMapHeight - (Const.SPACING_MAP_HEIGHT / 2);
 		
 		UnfoldingMap map = initSmallMap(pApplet, mapX, mapY, mapWidth, mapHeight);
-		maps.add(map);
 		return map;
 	}
 
-	public static UnfoldingMap initNatureMapB(PApplet pApplet, int width, int height, 
-			List<UnfoldingMap> maps) {
+	public static UnfoldingMap initNatureMapB(PApplet pApplet, int width, int height) {
 		int detailsMapHeight = (height - Const.SPACING_TOP) / 2;
 		int mapX = width / 3 * 2 + 2 * Const.SPACING_MAP_WIDTH;
 		int mapY = Const.SPACING_TOP;
@@ -42,12 +37,10 @@ public class ZPMapUtils {
 		int mapHeight = detailsMapHeight - (Const.SPACING_MAP_HEIGHT / 2);
 		
 		UnfoldingMap map = initSmallMap(pApplet, mapX, mapY, mapWidth, mapHeight);
-		maps.add(map);
 		return map;
 	}
 
-	public static UnfoldingMap initParkingMapA(PApplet pApplet, int width, int height, 
-			List<UnfoldingMap> maps) {
+	public static UnfoldingMap initParkingMapA(PApplet pApplet, int width, int height) {
 		int detailsMapHeight = (height - Const.SPACING_TOP) / 2;
 		int mapX = width / 3 + Const.SPACING_MAP_WIDTH;
 		int mapY = Const.SPACING_TOP + detailsMapHeight + (Const.SPACING_MAP_HEIGHT / 2);
@@ -55,12 +48,10 @@ public class ZPMapUtils {
 		int mapHeight = detailsMapHeight - (Const.SPACING_MAP_HEIGHT / 2);
 		
 		UnfoldingMap map = initSmallMap(pApplet, mapX, mapY, mapWidth, mapHeight);
-		maps.add(map);
 		return map;
 	}
 
-	public static UnfoldingMap initParkingMapB(PApplet pApplet, int width, int height, 
-			List<UnfoldingMap> maps) {
+	public static UnfoldingMap initParkingMapB(PApplet pApplet, int width, int height) {
 		int detailsMapHeight = (height - Const.SPACING_TOP) / 2;
 		int mapX = width / 3 * 2 + 2 * Const.SPACING_MAP_WIDTH;
 		int mapY = Const.SPACING_TOP + detailsMapHeight + (Const.SPACING_MAP_HEIGHT / 2);
@@ -68,7 +59,6 @@ public class ZPMapUtils {
 		int mapHeight = detailsMapHeight - (Const.SPACING_MAP_HEIGHT / 2);
 		
 		UnfoldingMap map = initSmallMap(pApplet, mapX, mapY, mapWidth, mapHeight);
-		maps.add(map);
 		return map;
 	}
 	
