@@ -102,7 +102,6 @@ public class Main extends PApplet {
 		
 		ZPMarkerUtils.showParkingIcons(this.parkingMapA, this.parkingMarkersA, 14);
 		ZPMarkerUtils.showParkingIcons(this.parkingMapB, this.parkingMarkersB, 14);
-		
 	}
 
 	public void mouseClicked() {
