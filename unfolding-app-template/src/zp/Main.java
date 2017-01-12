@@ -1,5 +1,6 @@
 package zp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.gicentre.utils.stat.BarChart;
@@ -18,6 +19,7 @@ import marker.DistrictMarker;
 import marker.ParkingMarker;
 import marker.Property;
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class Main extends PApplet {
 
@@ -52,6 +54,14 @@ public class Main extends PApplet {
 	private DistrictMarker hoveredDistrict;
 	
 	private NatureVsParkingChart natureVsParkingChart;
+	
+	private PImage filterIcon;
+	
+	int detailsMapHeight;
+	int diagramX;
+	int diagramY;
+	int diagramWidth;
+	int diagramHeight;
 	
 	public static void main(String[] args) {
 		PApplet.main(new String[] { Main.class.getName() });
@@ -92,17 +102,20 @@ public class Main extends PApplet {
 		this.natureVsParkingChart = new NatureVsParkingChart(this, parkingMarkersA, 
 				parkingMarkersB, parkMarkersA, parkMarkersB, forestMarkersA, 
 				forestMarkersB, grassMarkersA, grassMarkersB);
+		
+		detailsMapHeight = (height - Const.SPACING_TOP) / 2;
+		diagramX = 0;
+		diagramY = Const.SPACING_TOP + detailsMapHeight + (Const.SPACING_MAP_HEIGHT / 2);
+		diagramWidth = width / 3;
+		diagramHeight = detailsMapHeight - (Const.SPACING_MAP_HEIGHT / 2);
+		
+		this.filterIcon = loadImage("img/filter.png");
 	}
 
 	public void draw() {
 		background(0);
 		drawMaps();
 		
-		int detailsMapHeight = (height - Const.SPACING_TOP) / 2;
-		int diagramX = 0;
-		int diagramY = Const.SPACING_TOP + detailsMapHeight + (Const.SPACING_MAP_HEIGHT / 2);
-		int diagramWidth = width / 3;
-		int diagramHeight = detailsMapHeight - (Const.SPACING_MAP_HEIGHT / 2);
 		fill(249);
 		rect(diagramX, diagramY, diagramWidth, diagramHeight);
 		
@@ -119,10 +132,12 @@ public class Main extends PApplet {
 		text(this.selectedDistrictBName, 
 				(width*2 / 3) + 2*Const.SPACING_MAP_WIDTH + 50, 
 				35);
-		textFont(createFont("Segoe UI Light", 14));
+		textFont(createFont("Segoe UI", 14));
 		
 		ZPMarkerUtils.showParkingIcons(this.parkingMapA, this.parkingMarkersA, 14);
 		ZPMarkerUtils.showParkingIcons(this.parkingMapB, this.parkingMarkersB, 14);
+		
+		//image(this.filterIcon, 50, 50);
 	}
 
 	public void mouseClicked() {

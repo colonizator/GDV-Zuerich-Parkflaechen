@@ -6,7 +6,10 @@ import java.util.List;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoJSONReader;
 import de.fhpotsdam.unfolding.data.MarkerFactory;
+import de.fhpotsdam.unfolding.geo.Location;
+import de.fhpotsdam.unfolding.marker.AbstractShapeMarker;
 import de.fhpotsdam.unfolding.marker.Marker;
+import de.fhpotsdam.unfolding.marker.MultiMarker;
 import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -14,6 +17,7 @@ import marker.DistrictMarker;
 import marker.ParkingMarker;
 import marker.Property;
 import processing.core.PApplet;
+import processing.core.PVector;
 
 public class ZPDataUtils {
 
@@ -65,7 +69,7 @@ public class ZPDataUtils {
 		markerFactory.setPointClass(ParkingMarker.class);
 		List<Marker> parkingMarkers = markerFactory.createMarkers(features);
 		for(Marker marker : parkingMarkers) {
-			marker.setProperty(Property.AREA.toString(), (2.3f*5)/10); // 10 ist ein Platzhalter für den Maßstab
+			marker.setProperty(Property.AREA.toString(), (2.3f*5)/1); // 10 ist ein Platzhalter für den Maßstab
 		}
 		return parkingMarkers;
 	}
@@ -79,10 +83,65 @@ public class ZPDataUtils {
 			marker.setHighlightColor(highlight);
 			if (marker instanceof SimplePolygonMarker) {
 				SimplePolygonMarker poly = (SimplePolygonMarker) marker;
-				marker.setProperty(Property.AREA.toString(), Math.abs(GeoUtils.getArea(poly)));
+				System.out.println(getArea(poly));
+				marker.setProperty(Property.AREA.toString(), 
+						Math.abs(GeoUtils.getArea(poly) * 100000000));
 			}
 		}
 		return markers;
 	}
 	
+	
+	
+	private static float getArea(Marker marker) {
+		return getArea(getLocations(marker));
+	}
+	
+	public static List<Location> getLocations(Marker marker) {
+		List<Location> locations = new ArrayList<Location>();
+		if (marker instanceof MultiMarker) {
+			// recursive for multi
+			MultiMarker mm = (MultiMarker) marker;
+			for (Marker m : mm.getMarkers()) {
+				locations.addAll(getLocations(m));
+			}
+		} else if (marker instanceof AbstractShapeMarker) {
+			// line or polygon
+			AbstractShapeMarker sm = (AbstractShapeMarker) marker;
+			locations.addAll(sm.getLocations());
+		} else {
+			// default: point
+			locations.add(marker.getLocation());
+		}
+		return locations;
+	}
+	
+	public static float getArea(List<Location> vertices) {
+		/*
+		float area = 0;
+		for(int i = 0; i < vertices.size() - 1; i++) {
+			PVector vi0 = vertices.get(i);
+			PVector vi1 = vertices.get(i + 1);
+            area += (vi1.y - vi0.y) * (2 + Math.sin(ConvertToRadian(vi0.x)) + Math.sin(ConvertToRadian(vi1.x)));
+
+		}
+		area = area * 6378137 * 6378137 / 2;
+		return Math.abs(area);
+		*/
+		
+		float sum = 0;
+		
+		for (int i = 0; i < vertices.size() - 1; i++) {
+			PVector vi0 = vertices.get(i);
+			PVector vi1 = vertices.get(i + 1);
+			sum += (vi0.x * vi1.y - vi1.x * vi0.y);
+		}
+		return Math.abs(sum) * 0.5f;
+		
+	}
+
+	private static double ConvertToRadian(double input)
+	{
+	    return input * Math.PI / 180;
+	}
 }

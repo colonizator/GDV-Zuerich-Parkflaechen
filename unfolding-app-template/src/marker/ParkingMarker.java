@@ -1,5 +1,8 @@
 package marker;
 
+import java.util.Arrays;
+import java.util.List;
+
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.SimplePointMarker;
 import processing.core.PGraphics;
@@ -19,12 +22,17 @@ public class ParkingMarker extends SimplePointMarker {
 	private PImage femaleIcon;
 	private PImage gueterOrTaxiIcon;
 	
+	private List<String> filter;
+	
 	public ParkingMarker() {
 		super();
 	}
 
 	public ParkingMarker(Location location) {
 		super(location);
+		this.filter = Arrays.asList("Blaue_PP", "Weisse_PP", "Behindert",
+				"Gueterumschlag", "Car", "Elektro", "Frauen", "Gueter oder Taxi",
+				"Taxi");
 	}
 	
 	@Override
@@ -34,45 +42,80 @@ public class ParkingMarker extends SimplePointMarker {
 			String type = (String) this.properties.get("ART");
 			if(this.showIcon) {
 				if (type.equals("Blaue_PP")) {
-					pg.image(this.blueParkIcon, x, y);
+					if(this.filter.contains("Blaue_PP"))
+						pg.image(this.blueParkIcon, x, y);
 				} else if(type.equals("Weisse_PP")) {
-					pg.image(this.whiteParkIcon, x, y);
+					if(this.filter.contains("Weisse_PP"))
+						pg.image(this.whiteParkIcon, x, y);
 				} else if(type.equals("Behindert")) {
-					pg.image(this.disabledIcon, x, y);
+					if(this.filter.contains("Behindert"))
+						pg.image(this.disabledIcon, x, y);
 				} else if(type.equals("Gueterumschlag")) {
-					pg.image(this.gueterUmschlagIcon, x, y);
+					if(this.filter.contains("Gueterumschlag"))
+						pg.image(this.gueterUmschlagIcon, x, y);
 				} else if(type.equals("Car")) {
-					pg.image(this.carIcon, x, y);
+					if(this.filter.contains("Car"))
+						pg.image(this.carIcon, x, y);
 				} else if(type.equals("Elektro")) {
-					pg.image(this.electroIcon, x, y);
+					if(this.filter.contains("Elektro"))
+						pg.image(this.electroIcon, x, y);
 				} else if(type.equals("Frauen")) {
-					pg.image(this.femaleIcon, x, y);
+					if(this.filter.contains("Frauen"))
+						pg.image(this.femaleIcon, x, y);
 				} else if(type.equals("Gueter oder Taxi")) {
-					pg.image(this.gueterOrTaxiIcon, x, y);
+					if(this.filter.contains("Gueter oder Taxi"))
+						pg.image(this.gueterOrTaxiIcon, x, y);
 				} else if(type.equals("Taxi")) {
-					pg.image(this.taxiIcon, x, y);
+					if(this.filter.contains("Taxi"))
+						pg.image(this.taxiIcon, x, y);
 				}
 			} else {
 				if (type.equals("Blaue_PP")) {
-					pg.fill(0,160,227);
+					if(this.filter.contains("Blaue_PP")) {
+						pg.fill(0,160,227);
+						pg.triangle(x-2, y+2, x+2, y+2, x, y-2);
+					}
 				} else if(type.equals("Weisse_PP")) {
-					pg.fill(23,174,148);
+					if(this.filter.contains("Weisse_PP")) {
+						pg.fill(23,174,148);
+						pg.triangle(x-2, y+2, x+2, y+2, x, y-2);
+					}
 				} else if(type.equals("Behindert")) {
-					pg.fill(47,60,132);
+					if(this.filter.contains("Behindert")) {
+						pg.fill(47,60,132);
+						pg.triangle(x-2, y+2, x+2, y+2, x, y-2);
+					}
 				} else if(type.equals("Gueterumschlag")) {
-					pg.fill(102,157,210);
+					if(this.filter.contains("Gueterumschlag")) {
+						pg.fill(102,157,210);
+						pg.triangle(x-2, y+2, x+2, y+2, x, y-2);
+					}
 				} else if(type.equals("Car")) {
-					pg.fill(167,158,205);
+					if(this.filter.contains("Car")) {
+						pg.fill(167,158,205);
+						pg.triangle(x-2, y+2, x+2, y+2, x, y-2);
+					}
 				} else if(type.equals("Elektro")) {
-					pg.fill(0,160,227);
+					if(this.filter.contains("Elektro")) {
+						pg.fill(0,160,227);
+						pg.triangle(x-2, y+2, x+2, y+2, x, y-2);
+					}
 				} else if(type.equals("Frauen")) {
-					pg.fill(235,134,181);
+					if(this.filter.contains("Frauen")) {
+						pg.fill(235,134,181);
+						pg.triangle(x-2, y+2, x+2, y+2, x, y-2);
+					}
 				} else if(type.equals("Gueter oder Taxi")) {
-					pg.fill(142,0,193);
+					if(this.filter.contains("Gueter oder Taxi")) {
+						pg.fill(142,0,193);
+						pg.triangle(x-2, y+2, x+2, y+2, x, y-2);
+					}
 				} else if(type.equals("Taxi")) {
-					pg.fill(254,191,12);
+					if(this.filter.contains("Taxi")) {
+						pg.fill(254,191,12);
+						pg.triangle(x-2, y+2, x+2, y+2, x, y-2);
+					}
 				}
-				pg.triangle(x-2, y+2, x+2, y+2, x, y-2);
 			}
 		}
 	}
@@ -119,5 +162,9 @@ public class ParkingMarker extends SimplePointMarker {
 
 	public void setGueterOrTaxiIcon(PImage gueterOrTaxiIcon) {
 		this.gueterOrTaxiIcon = gueterOrTaxiIcon;
+	}
+	
+	public void setFilter(List<String> filter) {
+		this.filter = filter;
 	}
 }

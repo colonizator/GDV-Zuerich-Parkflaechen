@@ -61,9 +61,6 @@ public class NatureVsParkingChart {
 		float natureAreaTotal = forestAreaTotal + parkAreaTotal + grassAreaTotal;
 		float natureAreaMapA = forestAreaMapA + parkAreaMapA + grassAreaMapA;
 		float natureAreaMapB = forestAreaMapB + parkAreaMapB + grassAreaMapB;
-		natureAreaTotal *= 10000000;
-		natureAreaMapA *= 10000000;
-		natureAreaMapB *= 10000000;
 		ColourTable cTable = new ColourTable();
 		cTable.addContinuousColourRule(0.5f/6, 130,130,130);
 		cTable.addContinuousColourRule(1.5f/6, 170,170,170);
