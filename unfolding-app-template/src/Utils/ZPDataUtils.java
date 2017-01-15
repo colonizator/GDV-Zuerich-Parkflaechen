@@ -99,6 +99,7 @@ public class ZPDataUtils {
 						Math.abs(GeoUtils.getArea(poly) * 100000000));
 			}
 		}
+		
 		return forestMarkers;
 	}
 

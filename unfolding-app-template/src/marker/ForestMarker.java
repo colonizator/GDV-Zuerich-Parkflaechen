@@ -31,6 +31,13 @@ public class ForestMarker extends SimplePolygonMarker implements Filterable {
 			super.draw(pg, arg1);
 		}
 	}
+	
+	@Override
+	public void draw(PGraphics arg0, List<MapPosition> arg1, List<List<MapPosition>> arg2) {
+		if(!this.filtered) {
+			super.draw(arg0, arg1, arg2);
+		}
+	}
 
 	public boolean isFiltered() {
 		return filtered;

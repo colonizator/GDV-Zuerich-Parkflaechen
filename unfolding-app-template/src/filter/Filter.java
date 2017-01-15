@@ -1,6 +1,5 @@
 package filter;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +32,7 @@ public class Filter {
 	private List<Marker>[] markersLists;
 	private String filterAttribute;
 	
-	private List<Chart> charts;
+	private Chart chart;
 	
 	@SafeVarargs
 	public Filter(PApplet pApplet, int x, int y, int width, int height,
@@ -110,8 +109,7 @@ public class Filter {
 		
 		this.markersLists = markersLists;
 		this.filterAttribute = filterAttribute;
-		this.charts = new ArrayList<>();
-		this.charts.add(chart);
+		this.chart = chart;
 	}
 	
 	public void draw() {
@@ -139,7 +137,7 @@ public class Filter {
 		} else if(mouseX >= this.menuX && mouseX <= this.menuX + this.menuWidth
 				&& mouseY >= this.menuY && mouseY <= this.menuY + this.menuHeight) {
 			filter();
-			initCharts();
+			this.chart.init();
 		} else {
 			this.showMenu = false;
 		}
@@ -166,12 +164,6 @@ public class Filter {
 					
 				}
 			}
-		}
-	}
-	
-	public void initCharts() {
-		for(Chart chart : this.charts) {
-			chart.init();
 		}
 	}
 	

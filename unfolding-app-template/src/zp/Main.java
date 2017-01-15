@@ -510,21 +510,13 @@ public class Main extends PApplet {
 	public void switchMaps(List<Marker> markers1, List<Marker> markers2) {
 		for (Marker marker2 : markers2) {
 			for (Marker marker1 : markers1) {
-				if (equalLocations(marker1.getLocation(), marker2.getLocation())) {
+				if (ZPMarkerUtils.markerEquals(marker1, marker2)) {
 					if (!marker2.isHidden()) {
 						marker1.setHidden(false);
 					}
 				}
 			}
 		}
-	}
-
-	public boolean equalLocations(Location locations1, Location locations2) {
-		boolean equal = false;
-		if (locations1.equals(locations2)) {
-			equal = true;
-		}
-		return equal;
 	}
 
 	public void drawMaps() {
