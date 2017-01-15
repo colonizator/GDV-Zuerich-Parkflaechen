@@ -348,7 +348,6 @@ public class Main extends PApplet {
 
 	public void loadData() {
 		int transparent = color(100, 100, 100, 0);
-//		int lightGrey = color(124, 124, 124, 127);
 		int grey = color(124, 124, 124, 127);
 		int lightGrey = color(220, 220, 220, 127);
 		int greenPark = color(0, 170, 0, 127);
@@ -359,8 +358,8 @@ public class Main extends PApplet {
 		int lightGreenForest = color(0, 200, 40, 127);
 		
 		this.districtMarkers = ZPDataUtils.loadDistricts(this, grey, lightGrey, -1);
-		this.districtMarkersA = ZPDataUtils.loadDistricts(this, transparent, transparent, 3);
-		this.districtMarkersB = ZPDataUtils.loadDistricts(this, transparent, transparent, 3);
+		this.districtMarkersA = ZPDataUtils.loadDistricts(this, transparent, transparent, 2);
+		this.districtMarkersB = ZPDataUtils.loadDistricts(this, transparent, transparent, 2);
 		this.parkMarkersA = ZPDataUtils.loadParks(this, greenPark, lightGreenPark);
 		this.parkMarkersB = ZPDataUtils.loadParks(this, greenPark, lightGreenPark);
 		this.grassMarkersA = ZPDataUtils.loadGrass(this, greenGrass, lightGreenGrass);
