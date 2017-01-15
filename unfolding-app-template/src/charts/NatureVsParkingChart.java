@@ -63,12 +63,8 @@ public class NatureVsParkingChart implements Chart {
 		float natureAreaMapA = forestAreaMapA + parkAreaMapA + grassAreaMapA;
 		float natureAreaMapB = forestAreaMapB + parkAreaMapB + grassAreaMapB;
 		ColourTable cTable = new ColourTable();
-		cTable.addContinuousColourRule(0.5f/6, 130,130,130);
-		cTable.addContinuousColourRule(1.5f/6, 170,170,170);
-		cTable.addContinuousColourRule(2.5f/6, 255,255,255);
-		cTable.addContinuousColourRule(3.5f/6, 0,180,0);
-		cTable.addContinuousColourRule(4.5f/6, 0,140,0);
-		cTable.addContinuousColourRule(5.5f/6, 0,100,0);
+		cTable.addContinuousColourRule(0.5f/6, 0,76,153);
+		cTable.addContinuousColourRule(5.5f/6, 0,153,76);
 		
 		if(!this.mapASelected && !this.mapBSelected) {
 			this.natureVsParkingBarChart.setData(new float[] {parkingAreaTotal, 
@@ -86,7 +82,6 @@ public class NatureVsParkingChart implements Chart {
 			this.natureVsParkingBarChart.setBarLabels(new String[] {
 					"Parkpl\u00E4tze", districtMapAName,
 					"Gr\u00FCnfl\u00E4chen", districtMapAName});
-			
 			this.natureVsParkingBarChart.setBarColour(
 					new float[] {0, 0, 255, 255}, 
 					cTable);
@@ -103,6 +98,7 @@ public class NatureVsParkingChart implements Chart {
 			this.natureVsParkingBarChart.setBarColour(
 					new float[] {0, 0, 0, 255, 255, 255}, 
 					cTable);
+			this.natureVsParkingBarChart.setAxisLabelColour(pApplet.color(51));
 		}
 		this.natureVsParkingBarChart.showValueAxis(true);
 		this.natureVsParkingBarChart.setValueFormat("# m²");
