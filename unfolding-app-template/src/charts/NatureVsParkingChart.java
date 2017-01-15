@@ -27,6 +27,13 @@ public class NatureVsParkingChart implements Chart {
 	private String districtMapAName;
 	private String districtMapBName;
 	
+	private double totalNatureRatio;
+	private double natureRatioA;
+	private double natureRatioB;
+	private double totalParkingRatio;
+	private double parkingRatioA;
+	private double parkingRatioB;
+	
 	public NatureVsParkingChart(PApplet pApplet, List<Marker> parkingMarkerA,
 			List<Marker> parkingMarkerB, List<Marker> parkMarkerA,
 			List<Marker> parkMarkerB, List<Marker> forestMarkerA,
@@ -67,36 +74,40 @@ public class NatureVsParkingChart implements Chart {
 		cTable.addContinuousColourRule(5.5f/6, 0,153,76);
 		
 		if(!this.mapASelected && !this.mapBSelected) {
-			this.natureVsParkingBarChart.setData(new float[] {parkingAreaTotal, 
-					natureAreaTotal});
-			this.natureVsParkingBarChart.setBarLabels(new String[] {"Parkpl\u00E4tze", 
-			"Gr\u00FCnfl\u00E4chen"});
+			this.natureVsParkingBarChart.setData(new float[] { 
+					natureAreaTotal,
+					parkingAreaTotal});
+			this.natureVsParkingBarChart.setBarLabels(new String[] { 
+				"Gr\u00FCnfl\u00E4chen",
+				"Parkpl\u00E4tze"});
 			
 			this.natureVsParkingBarChart.setBarColour(
-					new float[] {0, 255}, 
+					new float[] {255, 0}, 
 					cTable);
 		} else if(this.mapASelected && !this.mapBSelected) {
 			this.natureVsParkingBarChart.setData(new float[] {
-					parkingAreaTotal, parkingAreaMapA,
-					natureAreaTotal, natureAreaMapA});
+					natureAreaTotal, parkingAreaTotal,
+					natureAreaMapA, parkingAreaMapA});
 			this.natureVsParkingBarChart.setBarLabels(new String[] {
-					"Parkpl\u00E4tze", districtMapAName,
-					"Gr\u00FCnfl\u00E4chen", districtMapAName});
+					"Gr\u00FCnfl\u00E4chen", "Parkpl\u00E4tze",
+					districtMapAName, districtMapAName});
 			this.natureVsParkingBarChart.setBarColour(
-					new float[] {0, 0, 255, 255}, 
+					new float[] {255, 0, 255, 0}, 
 					cTable);
 		} else if(!this.mapASelected && this.mapBSelected) {
 			// Tritt nicht ein
 		} else if(this.mapASelected && this.mapBSelected) {
 			this.natureVsParkingBarChart.setData(new float[] {
-					parkingAreaTotal, parkingAreaMapA, parkingAreaMapB,
-					natureAreaTotal, natureAreaMapA, natureAreaMapB});
+					natureAreaTotal, parkingAreaTotal, 
+					natureAreaMapA, parkingAreaMapA, 
+					natureAreaMapB, parkingAreaMapB});
 			this.natureVsParkingBarChart.setBarLabels(new String[] {
-					"Parkpl\u00E4tze", districtMapAName, districtMapBName,
-					"Gr\u00FCnfl\u00E4chen", districtMapAName,  districtMapBName});
+					"Gr\u00FCnfl\u00E4chen", "Parkpl\u00E4tze", 
+					districtMapAName, districtMapAName,  
+					districtMapBName, districtMapBName});
 			
 			this.natureVsParkingBarChart.setBarColour(
-					new float[] {0, 0, 0, 255, 255, 255}, 
+					new float[] {255, 0, 255, 0, 255, 0}, 
 					cTable);
 			this.natureVsParkingBarChart.setAxisLabelColour(pApplet.color(51));
 		}
@@ -104,6 +115,13 @@ public class NatureVsParkingChart implements Chart {
 		this.natureVsParkingBarChart.setValueFormat("# m²");
 		this.natureVsParkingBarChart.showCategoryAxis(true);
 		this.natureVsParkingBarChart.setMinValue(0);
+		
+		this.totalNatureRatio = Math.round((natureAreaTotal*100 / parkingAreaTotal))/100.;
+		this.totalParkingRatio = 1;
+		this.natureRatioA = Math.round((natureAreaMapA*100 / parkingAreaMapA))/100.;
+		this.parkingRatioA = 1;
+		this.natureRatioB = Math.round((natureAreaMapB*100 / parkingAreaMapB))/100.;
+		this.parkingRatioB = 1;
 	}
 	
 	private float getTotalArea(List<Marker> markers, boolean onlyShown) {
@@ -142,7 +160,53 @@ public class NatureVsParkingChart implements Chart {
 		int diagramHeight = detailsMapHeight - (Const.SPACING_MAP_HEIGHT / 2);
 		
 		this.natureVsParkingBarChart.draw(diagramX+20, diagramY+20, 
-				diagramWidth-40, diagramHeight-40);
+				diagramWidth-40, diagramHeight-140);
+		
+		int ratioX = diagramX+20+80;
+		int ratioY = diagramY+diagramHeight-80;
+		
+		String doublePoint = " : ";
+		String zurichTxt = "Z\u00FCrich: ";
+		String zurichNatureRatioTxt = "" + this.totalNatureRatio;
+		String zurichParkingRatioTxt = "" + this.totalParkingRatio;
+		String districtNameATxt = this.districtMapAName + ": ";
+		String natureRatioATxt = "" + this.natureRatioA;
+		String parkingRatioATxt = "" + this.parkingRatioA;
+		String districtNameBTxt = this.districtMapBName + ": ";
+		String natureRatioBTxt = "" + this.natureRatioB;
+		String parkingRatioBTxt = "" + this.parkingRatioB;
+		
+		this.pApplet.fill(this.pApplet.color(51));
+		this.pApplet.text("Ratios: ", diagramX+20, ratioY);
+		this.pApplet.text(zurichTxt, ratioX, ratioY);
+		this.pApplet.fill(this.pApplet.color(0,153,76));
+		this.pApplet.text(zurichNatureRatioTxt, ratioX + 120, ratioY);
+		this.pApplet.fill(this.pApplet.color(51));
+		this.pApplet.text(doublePoint, ratioX + 120 + 60, ratioY);
+		this.pApplet.fill(this.pApplet.color(0,76,153));
+		this.pApplet.text(zurichParkingRatioTxt, ratioX + 120 + 50 + 50, ratioY);
+		
+		if(this.mapASelected) {
+			this.pApplet.fill(this.pApplet.color(51));
+			this.pApplet.text(districtNameATxt, ratioX, ratioY+30);
+			this.pApplet.fill(this.pApplet.color(0,153,76));
+			this.pApplet.text(natureRatioATxt, ratioX + 120, ratioY+30);
+			this.pApplet.fill(this.pApplet.color(51));
+			this.pApplet.text(doublePoint, ratioX + 120 + 60, ratioY+30);
+			this.pApplet.fill(this.pApplet.color(0,76,153));
+			this.pApplet.text(parkingRatioATxt, ratioX + 120 + 50 + 50, ratioY+30);
+			if(this.mapBSelected) {
+				this.pApplet.fill(this.pApplet.color(51));
+				this.pApplet.text(districtNameBTxt, ratioX, ratioY+60);
+				this.pApplet.fill(this.pApplet.color(0,153,76));
+				this.pApplet.text(natureRatioBTxt, ratioX + 120, ratioY+60);
+				this.pApplet.fill(this.pApplet.color(51));
+				this.pApplet.text(doublePoint, ratioX + 120 + 60, ratioY+60);
+				this.pApplet.fill(this.pApplet.color(0,76,153));
+				this.pApplet.text(parkingRatioBTxt, ratioX + 120 + 50 + 50, ratioY+60);
+			}
+		}
+		this.pApplet.fill(this.pApplet.color(255));
 	}
 	
 	public void setMapASelected(boolean mapASelected) {
