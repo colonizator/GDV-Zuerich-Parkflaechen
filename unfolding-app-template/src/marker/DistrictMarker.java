@@ -1,5 +1,6 @@
 package marker;
 
+import java.util.HashMap;
 import java.util.List;
 
 import de.fhpotsdam.unfolding.geo.Location;
@@ -19,6 +20,10 @@ public class DistrictMarker extends SimplePolygonMarker {
 
 	public DistrictMarker(List<Location> arg0) {
 		super(arg0);
+	}
+	
+	public DistrictMarker(List<Location> arg0, HashMap<String, Object> properties) {
+		super(arg0, properties);
 	}
 
 	@Override

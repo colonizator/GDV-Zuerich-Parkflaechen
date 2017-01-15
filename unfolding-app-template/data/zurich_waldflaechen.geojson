@@ -9,7 +9,7 @@
       "id": "relation/55552",
       "properties": {
         "@id": "relation/55552",
-        "landuse": "forest",
+        "landuse": "Wald",
         "type": "multipolygon"
       },
       "geometry": {
@@ -12299,7 +12299,7 @@
       "id": "relation/77094",
       "properties": {
         "@id": "relation/77094",
-        "landuse": "forest",
+        "landuse": "Wald",
         "name": "Zürichberg",
         "type": "multipolygon"
       },
@@ -17222,7 +17222,7 @@
       "id": "relation/954850",
       "properties": {
         "@id": "relation/954850",
-        "landuse": "forest",
+        "landuse": "Wald",
         "type": "multipolygon"
       },
       "geometry": {
@@ -18560,7 +18560,7 @@
       "id": "relation/1683447",
       "properties": {
         "@id": "relation/1683447",
-        "landuse": "forest",
+        "landuse": "Wald",
         "type": "multipolygon"
       },
       "geometry": {
@@ -18804,7 +18804,7 @@
       "id": "relation/1722256",
       "properties": {
         "@id": "relation/1722256",
-        "landuse": "forest",
+        "landuse": "Wald",
         "type": "multipolygon"
       },
       "geometry": {
@@ -19888,7 +19888,7 @@
       "id": "relation/2289174",
       "properties": {
         "@id": "relation/2289174",
-        "landuse": "forest",
+        "landuse": "Wald",
         "type": "multipolygon"
       },
       "geometry": {
@@ -22442,7 +22442,7 @@
       "id": "way/7991102",
       "properties": {
         "@id": "way/7991102",
-        "landuse": "forest",
+        "landuse": "Wald",
         "name": "Burghölzli"
       },
       "geometry": {
@@ -22598,14 +22598,14 @@
       "id": "way/10063096",
       "properties": {
         "@id": "way/10063096",
-        "landuse": "forest",
+        "landuse": "Wald",
         "source": "yahoo! Aerial imagery",
         "@relations": [
           {
             "role": "outer",
             "rel": 954850,
             "reltags": {
-              "landuse": "forest",
+              "landuse": "Wald",
               "type": "multipolygon"
             }
           }
@@ -23876,7 +23876,7 @@
       "id": "way/19943360",
       "properties": {
         "@id": "way/19943360",
-        "landuse": "forest",
+        "landuse": "Wald",
         "source": "yahoo! Aerial imagery"
       },
       "geometry": {
@@ -23936,7 +23936,7 @@
       "id": "way/20347578",
       "properties": {
         "@id": "way/20347578",
-        "landuse": "forest",
+        "landuse": "Wald",
         "source": "yahoo! Aerial imagery"
       },
       "geometry": {
@@ -24080,7 +24080,7 @@
       "id": "way/20350140",
       "properties": {
         "@id": "way/20350140",
-        "landuse": "forest",
+        "landuse": "Wald",
         "natural": "wood"
       },
       "geometry": {
@@ -24196,7 +24196,7 @@
       "id": "way/20350427",
       "properties": {
         "@id": "way/20350427",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -24275,7 +24275,7 @@
       "id": "way/20350493",
       "properties": {
         "@id": "way/20350493",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -24454,7 +24454,7 @@
       "id": "way/20350582",
       "properties": {
         "@id": "way/20350582",
-        "landuse": "forest",
+        "landuse": "Wald",
         "source": "yahoo! Aerial imagery"
       },
       "geometry": {
@@ -24566,7 +24566,7 @@
       "id": "way/20350609",
       "properties": {
         "@id": "way/20350609",
-        "landuse": "forest",
+        "landuse": "Wald",
         "source": "yahoo! Aerial imagery"
       },
       "geometry": {
@@ -24662,7 +24662,7 @@
       "id": "way/22341516",
       "properties": {
         "@id": "way/22341516",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -24753,7 +24753,7 @@
       "id": "way/25732970",
       "properties": {
         "@id": "way/25732970",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -24816,7 +24816,7 @@
       "id": "way/25733031",
       "properties": {
         "@id": "way/25733031",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -24915,7 +24915,7 @@
       "id": "way/25733055",
       "properties": {
         "@id": "way/25733055",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -25002,7 +25002,7 @@
       "id": "way/29207235",
       "properties": {
         "@id": "way/29207235",
-        "landuse": "forest",
+        "landuse": "Wald",
         "source": "yahoo! Aerial imagery"
       },
       "geometry": {
@@ -25090,7 +25090,7 @@
       "id": "way/33753515",
       "properties": {
         "@id": "way/33753515",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -25653,7 +25653,7 @@
       "id": "way/37345938",
       "properties": {
         "@id": "way/37345938",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -25784,7 +25784,7 @@
       "id": "way/38114524",
       "properties": {
         "@id": "way/38114524",
-        "landuse": "forest",
+        "landuse": "Wald",
         "name": "Bambus-Labyrinth"
       },
       "geometry": {
@@ -25824,7 +25824,7 @@
       "id": "way/41055540",
       "properties": {
         "@id": "way/41055540",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -25979,7 +25979,7 @@
       "id": "way/41234932",
       "properties": {
         "@id": "way/41234932",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -26042,7 +26042,7 @@
       "id": "way/41234988",
       "properties": {
         "@id": "way/41234988",
-        "landuse": "forest",
+        "landuse": "Wald",
         "source": "yahoo! Aerial imagery"
       },
       "geometry": {
@@ -26238,7 +26238,7 @@
       "id": "way/53559978",
       "properties": {
         "@id": "way/53559978",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -26385,7 +26385,7 @@
       "id": "way/53559988",
       "properties": {
         "@id": "way/53559988",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -26492,7 +26492,7 @@
       "id": "way/54108505",
       "properties": {
         "@id": "way/54108505",
-        "landuse": "forest",
+        "landuse": "Wald",
         "source": "Landsat;yahoo! Aerial imagery"
       },
       "geometry": {
@@ -26620,7 +26620,7 @@
       "id": "way/73606894",
       "properties": {
         "@id": "way/73606894",
-        "landuse": "forest",
+        "landuse": "Wald",
         "source": "Landsat; yahoo! Aerial imagery; updated by GPS"
       },
       "geometry": {
@@ -26840,7 +26840,7 @@
       "id": "way/124356993",
       "properties": {
         "@id": "way/124356993",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -26967,7 +26967,7 @@
       "id": "way/141571506",
       "properties": {
         "@id": "way/141571506",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -27094,7 +27094,7 @@
       "id": "way/142285750",
       "properties": {
         "@id": "way/142285750",
-        "landuse": "forest",
+        "landuse": "Wald",
         "source": "Landsat;yahoo! Aerial imagery"
       },
       "geometry": {
@@ -27354,7 +27354,7 @@
       "id": "way/142843621",
       "properties": {
         "@id": "way/142843621",
-        "landuse": "forest",
+        "landuse": "Wald",
         "source": "Bing Aerial Images"
       },
       "geometry": {
@@ -27906,7 +27906,7 @@
       "id": "way/142882411",
       "properties": {
         "@id": "way/142882411",
-        "landuse": "forest",
+        "landuse": "Wald",
         "source": "Bing Aerial Images"
       },
       "geometry": {
@@ -29086,13 +29086,13 @@
       "id": "way/142883405",
       "properties": {
         "@id": "way/142883405",
-        "landuse": "forest",
+        "landuse": "Wald",
         "@relations": [
           {
             "role": "outer",
             "rel": 2289174,
             "reltags": {
-              "landuse": "forest",
+              "landuse": "Wald",
               "type": "multipolygon"
             }
           }
@@ -30871,7 +30871,7 @@
       "id": "way/144489218",
       "properties": {
         "@id": "way/144489218",
-        "landuse": "forest",
+        "landuse": "Wald",
         "source": "yahoo! Aerial imagery"
       },
       "geometry": {
@@ -32703,7 +32703,7 @@
       "id": "way/312661403",
       "properties": {
         "@id": "way/312661403",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -32830,7 +32830,7 @@
       "id": "way/318803246",
       "properties": {
         "@id": "way/318803246",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -32889,7 +32889,7 @@
       "id": "way/319918722",
       "properties": {
         "@id": "way/319918722",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -33012,7 +33012,7 @@
       "id": "way/319918723",
       "properties": {
         "@id": "way/319918723",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -33083,7 +33083,7 @@
       "id": "way/319918724",
       "properties": {
         "@id": "way/319918724",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -33146,7 +33146,7 @@
       "id": "way/324840270",
       "properties": {
         "@id": "way/324840270",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -33189,7 +33189,7 @@
       "id": "way/326817252",
       "properties": {
         "@id": "way/326817252",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -33220,7 +33220,7 @@
       "id": "way/371571662",
       "properties": {
         "@id": "way/371571662",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -33291,7 +33291,7 @@
       "id": "way/371571663",
       "properties": {
         "@id": "way/371571663",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -33414,7 +33414,7 @@
       "id": "way/371571664",
       "properties": {
         "@id": "way/371571664",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -33577,7 +33577,7 @@
       "id": "way/371571665",
       "properties": {
         "@id": "way/371571665",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -33748,7 +33748,7 @@
       "id": "way/371571667",
       "properties": {
         "@id": "way/371571667",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -33787,7 +33787,7 @@
       "id": "way/378566738",
       "properties": {
         "@id": "way/378566738",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -33934,7 +33934,7 @@
       "id": "way/378566768",
       "properties": {
         "@id": "way/378566768",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -34117,7 +34117,7 @@
       "id": "way/379949541",
       "properties": {
         "@id": "way/379949541",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -34248,7 +34248,7 @@
       "id": "way/379949542",
       "properties": {
         "@id": "way/379949542",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -34407,7 +34407,7 @@
       "id": "way/379949543",
       "properties": {
         "@id": "way/379949543",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -34506,7 +34506,7 @@
       "id": "way/379949546",
       "properties": {
         "@id": "way/379949546",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -34613,7 +34613,7 @@
       "id": "way/379984023",
       "properties": {
         "@id": "way/379984023",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",
@@ -34892,7 +34892,7 @@
       "id": "way/379984026",
       "properties": {
         "@id": "way/379984026",
-        "landuse": "forest"
+        "landuse": "Wald"
       },
       "geometry": {
         "type": "Polygon",

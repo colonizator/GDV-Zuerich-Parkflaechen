@@ -9,8 +9,10 @@ import de.fhpotsdam.unfolding.data.MarkerFactory;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
-import de.fhpotsdam.unfolding.utils.MapUtils;
 import marker.DistrictMarker;
+import marker.ForestMarker;
+import marker.GrassMarker;
+import marker.ParkMarker;
 import marker.ParkingMarker;
 import marker.Property;
 import processing.core.PApplet;
@@ -39,22 +41,59 @@ public class ZPDataUtils {
 
 	public static List<Marker> loadParks(PApplet pApplet, int color, 
 			int selectedColor) {
-		List<Marker> parkMarkers = loadMarkers(pApplet, "zurich_parks.geojson", 
-				color, selectedColor);
+		List<Feature> features = GeoJSONReader.loadData(pApplet, 
+				"zurich_parks.geojson");
+		MarkerFactory markerFactory = new MarkerFactory();
+		markerFactory.setPolygonClass(ParkMarker.class);
+		List<Marker> parkMarkers = markerFactory.createMarkers(features);
+		for(Marker marker : parkMarkers) {
+			marker.setColor(color);
+			marker.setHighlightColor(selectedColor);
+			if (marker instanceof SimplePolygonMarker) {
+				SimplePolygonMarker poly = (SimplePolygonMarker) marker;
+				marker.setProperty(Property.AREA.toString(), 
+						Math.abs(GeoUtils.getArea(poly) * 100000000));
+			}
+		}
 		return parkMarkers;
 	}
 	
 	public static List<Marker> loadGrass(PApplet pApplet, int color, 
 			int selectedColor) {
-		List<Marker> grassMarkers = loadMarkers(pApplet, "zurich_grasflaechen.geojson", 
-				color, selectedColor);
+		List<Feature> features = GeoJSONReader.loadData(pApplet, 
+				"zurich_grasflaechen.geojson");
+		MarkerFactory markerFactory = new MarkerFactory();
+		markerFactory.setPolygonClass(GrassMarker.class);
+		List<Marker> grassMarkers = markerFactory.createMarkers(features);
+		for(Marker marker : grassMarkers) {
+			marker.setColor(color);
+			marker.setHighlightColor(selectedColor);
+			if (marker instanceof SimplePolygonMarker) {
+				SimplePolygonMarker poly = (SimplePolygonMarker) marker;
+				marker.setProperty(Property.AREA.toString(), 
+						Math.abs(GeoUtils.getArea(poly) * 100000000));
+			}
+		}
 		return grassMarkers;
 	}
 	
 	public static List<Marker> loadForest(PApplet pApplet, int color, 
 			int selectedColor) {
-		List<Marker> forestMarkers = loadMarkers(pApplet, "zurich_waldflaechen.geojson", 
-				color, selectedColor);
+		List<Feature> features = GeoJSONReader.loadData(pApplet, 
+				"zurich_waldflaechen.geojson");
+		
+		MarkerFactory markerFactory = new MarkerFactory();
+		markerFactory.setPolygonClass(ForestMarker.class);
+		List<Marker> forestMarkers = markerFactory.createMarkers(features);
+		for(Marker marker : forestMarkers) {
+			marker.setColor(color);
+			marker.setHighlightColor(selectedColor);
+			if (marker instanceof SimplePolygonMarker) {
+				SimplePolygonMarker poly = (SimplePolygonMarker) marker;
+				marker.setProperty(Property.AREA.toString(), 
+						Math.abs(GeoUtils.getArea(poly) * 100000000));
+			}
+		}
 		return forestMarkers;
 	}
 
@@ -69,22 +108,6 @@ public class ZPDataUtils {
 		}
 
 		return parkingMarkers;
-	}
-	
-	private static List<Marker> loadMarkers(PApplet pApplet, String fileName, 
-			int color, int highlight) {
-		List<Feature> data = GeoJSONReader.loadData(pApplet, fileName);
-		List<Marker> markers = MapUtils.createSimpleMarkers(data);
-		for (Marker marker : markers) {
-			marker.setColor(color);
-			marker.setHighlightColor(highlight);
-			if (marker instanceof SimplePolygonMarker) {
-				SimplePolygonMarker poly = (SimplePolygonMarker) marker;
-				marker.setProperty(Property.AREA.toString(), 
-						Math.abs(GeoUtils.getArea(poly) * 100000000));
-			}
-		}
-		return markers;
 	}
 	
 }

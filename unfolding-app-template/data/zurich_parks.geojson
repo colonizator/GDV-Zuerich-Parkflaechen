@@ -9,7 +9,7 @@
       "id": "relation/1173127",
       "properties": {
         "@id": "relation/1173127",
-        "leisure": "park",
+        "landuse": "Park",
         "type": "multipolygon"
       },
       "geometry": {
@@ -57,7 +57,7 @@
       "id": "relation/1683451",
       "properties": {
         "@id": "relation/1683451",
-        "leisure": "park",
+        "landuse": "Park",
         "name": "Klopstockwiese",
         "type": "multipolygon"
       },
@@ -242,7 +242,7 @@
       "id": "relation/1967221",
       "properties": {
         "@id": "relation/1967221",
-        "leisure": "park",
+        "landuse": "Park",
         "name": "Artergut",
         "type": "multipolygon"
       },
@@ -343,7 +343,7 @@
       "id": "relation/4734727",
       "properties": {
         "@id": "relation/4734727",
-        "leisure": "park",
+        "landuse": "Park",
         "type": "multipolygon"
       },
       "geometry": {
@@ -541,7 +541,7 @@
       "id": "relation/5468859",
       "properties": {
         "@id": "relation/5468859",
-        "leisure": "park",
+        "landuse": "Park",
         "type": "multipolygon"
       },
       "geometry": {
@@ -764,8 +764,7 @@
       "properties": {
         "@id": "way/4533222",
         "access": "yes",
-        "landuse": "village_green",
-        "leisure": "park",
+        "landuse": "Park",
         "name": "Kasernenwiese"
       },
       "geometry": {
@@ -801,7 +800,7 @@
       "id": "way/4592592",
       "properties": {
         "@id": "way/4592592",
-        "leisure": "park",
+        "landuse": "Park",
         "name": "Lutherwiese"
       },
       "geometry": {
@@ -861,7 +860,7 @@
       "id": "way/4626910",
       "properties": {
         "@id": "way/4626910",
-        "leisure": "park",
+        "landuse": "Park",
         "loc_name": "Platzspitz",
         "name": "Platzspitz"
       },
@@ -974,7 +973,7 @@
       "id": "way/4687934",
       "properties": {
         "@id": "way/4687934",
-        "leisure": "park",
+        "landuse": "Park",
         "name": "Alter Botanischer Garten",
         "name:de": "Alter Botanischer Garten",
         "name:ru": "Ботанический сад",
@@ -1095,7 +1094,7 @@
       "id": "way/4743823",
       "properties": {
         "@id": "way/4743823",
-        "leisure": "park",
+        "landuse": "Park",
         "loc_name": "Bäcki",
         "name": "Bäckeranlage"
       },
@@ -1173,7 +1172,7 @@
       "properties": {
         "@id": "way/5068727",
         "alt_name": "Rietbergpark",
-        "leisure": "park",
+        "landuse": "Park",
         "name": "Rieterpark"
       },
       "geometry": {
@@ -1293,7 +1292,7 @@
       "id": "way/5075824",
       "properties": {
         "@id": "way/5075824",
-        "leisure": "park"
+        "landuse": "Park"
       },
       "geometry": {
         "type": "Polygon",
@@ -1352,7 +1351,7 @@
       "id": "way/5940133",
       "properties": {
         "@id": "way/5940133",
-        "leisure": "park",
+        "landuse": "Park",
         "name": "Belvoirpark"
       },
       "geometry": {
@@ -1436,7 +1435,7 @@
       "id": "way/10753580",
       "properties": {
         "@id": "way/10753580",
-        "leisure": "park",
+        "landuse": "Park",
         "name": "Pestalozzianlage",
         "source": "Stadt Zürich Open Government Data; Geomatik + Vermessung; Tiefbau- und Entsorgungsdepartement"
       },
@@ -1481,7 +1480,7 @@
       "id": "way/24518883",
       "properties": {
         "@id": "way/24518883",
-        "leisure": "park",
+        "landuse": "Park",
         "name": "Fritschiwiese"
       },
       "geometry": {
@@ -1549,7 +1548,7 @@
       "id": "way/24593473",
       "properties": {
         "@id": "way/24593473",
-        "leisure": "park",
+        "landuse": "Park",
         "name": "Klingenpark"
       },
       "geometry": {
@@ -1609,7 +1608,7 @@
       "id": "way/24978197",
       "properties": {
         "@id": "way/24978197",
-        "leisure": "park"
+        "landuse": "Park"
       },
       "geometry": {
         "type": "Polygon",
@@ -1688,7 +1687,7 @@
       "id": "way/25983505",
       "properties": {
         "@id": "way/25983505",
-        "leisure": "park"
+        "landuse": "Park"
       },
       "geometry": {
         "type": "Polygon",
@@ -1747,7 +1746,7 @@
       "id": "way/27435515",
       "properties": {
         "@id": "way/27435515",
-        "leisure": "park"
+        "landuse": "Park"
       },
       "geometry": {
         "type": "Polygon",
@@ -1854,7 +1853,7 @@
       "id": "way/27435574",
       "properties": {
         "@id": "way/27435574",
-        "leisure": "park",
+        "landuse": "Park",
         "name": "Zeughaushof"
       },
       "geometry": {
@@ -1890,7 +1889,7 @@
       "id": "way/31433899",
       "properties": {
         "@id": "way/31433899",
-        "leisure": "park",
+        "landuse": "Park",
         "name": "Kurt-Guggenheim-Anlage",
         "note": "FIXME"
       },
@@ -1955,7 +1954,7 @@
       "id": "way/31567199",
       "properties": {
         "@id": "way/31567199",
-        "leisure": "park",
+        "landuse": "Park",
         "tourism": "picnic_site"
       },
       "geometry": {
@@ -2035,7 +2034,7 @@
       "id": "way/31567211",
       "properties": {
         "@id": "way/31567211",
-        "leisure": "park"
+        "landuse": "Park"
       },
       "geometry": {
         "type": "Polygon",
@@ -2134,7 +2133,7 @@
       "id": "way/31969582",
       "properties": {
         "@id": "way/31969582",
-        "leisure": "park"
+        "landuse": "Park"
       },
       "geometry": {
         "type": "Polygon",
@@ -2181,8 +2180,7 @@
       "id": "way/33840032",
       "properties": {
         "@id": "way/33840032",
-        "landuse": "recreation_ground",
-        "leisure": "park",
+        "landuse": "Park",
         "loc_name": "Rentenwiese",
         "loc_name:gsw": "Räntä",
         "name": "Arboretum"
@@ -2380,7 +2378,7 @@
       "id": "way/36917336",
       "properties": {
         "@id": "way/36917336",
-        "leisure": "park",
+        "landuse": "Park",
         "name": "Neumünsteranlage"
       },
       "geometry": {
@@ -2436,7 +2434,7 @@
       "id": "way/37065137",
       "properties": {
         "@id": "way/37065137",
-        "leisure": "park",
+        "landuse": "Park",
         "name": "Bullingerhof"
       },
       "geometry": {
@@ -2481,7 +2479,7 @@
       "properties": {
         "@id": "way/37380208",
         "barrier": "fence",
-        "leisure": "park",
+        "landuse": "Park",
         "name": "Freibad Dolder",
         "sport": "swimming"
       },
@@ -2554,7 +2552,7 @@
       "id": "way/37726776",
       "properties": {
         "@id": "way/37726776",
-        "leisure": "park",
+        "landuse": "Park",
         "name": "Stadelhoferplatz"
       },
       "geometry": {
@@ -2606,7 +2604,7 @@
       "id": "way/39487464",
       "properties": {
         "@id": "way/39487464",
-        "leisure": "park",
+        "landuse": "Park",
         "name": "Pärkli (Seeburgpark)",
         "wheelchair": "yes"
       },
@@ -2671,7 +2669,7 @@
       "id": "way/41832322",
       "properties": {
         "@id": "way/41832322",
-        "leisure": "park",
+        "landuse": "Park",
         "name": "J.-R.-von-Salis-Anlage"
       },
       "geometry": {
@@ -2739,7 +2737,7 @@
       "id": "way/43394531",
       "properties": {
         "@id": "way/43394531",
-        "leisure": "park"
+        "landuse": "Park"
       },
       "geometry": {
         "type": "Polygon",
@@ -2786,7 +2784,7 @@
       "id": "way/89060423",
       "properties": {
         "@id": "way/89060423",
-        "leisure": "park",
+        "landuse": "Park",
         "name": "Botanischer Garten der Universität Zürich",
         "name:de": "Botanischer Garten der Universität Zürich",
         "name:es": "Jardín Botánico de Zúrich",
@@ -2915,7 +2913,7 @@
       "id": "way/89976931",
       "properties": {
         "@id": "way/89976931",
-        "leisure": "park"
+        "landuse": "Park"
       },
       "geometry": {
         "type": "Polygon",
@@ -2950,7 +2948,7 @@
       "id": "way/93769198",
       "properties": {
         "@id": "way/93769198",
-        "leisure": "park",
+        "landuse": "Park",
         "name": "Kluspark"
       },
       "geometry": {
@@ -3010,7 +3008,7 @@
       "id": "way/108362751",
       "properties": {
         "@id": "way/108362751",
-        "leisure": "park",
+        "landuse": "Park",
         "name": "Weinbergpark"
       },
       "geometry": {
@@ -3074,7 +3072,7 @@
       "id": "way/121067747",
       "properties": {
         "@id": "way/121067747",
-        "leisure": "park"
+        "landuse": "Park"
       },
       "geometry": {
         "type": "Polygon",
@@ -3125,7 +3123,7 @@
       "id": "way/121536711",
       "properties": {
         "@id": "way/121536711",
-        "leisure": "park",
+        "landuse": "Park",
         "name": "Kollerwiese"
       },
       "geometry": {
@@ -3217,7 +3215,7 @@
       "id": "way/121595592",
       "properties": {
         "@id": "way/121595592",
-        "leisure": "park",
+        "landuse": "Park",
         "name": "Zeughaushof"
       },
       "geometry": {
@@ -3253,7 +3251,7 @@
       "id": "way/121597493",
       "properties": {
         "@id": "way/121597493",
-        "leisure": "park",
+        "landuse": "Park",
         "name": "Labyrinthplatz",
         "tourism": "attraction",
         "website": "http://www.labyrinthplatz.ch/"
@@ -3335,7 +3333,7 @@
       "id": "way/122618842",
       "properties": {
         "@id": "way/122618842",
-        "leisure": "park"
+        "landuse": "Park"
       },
       "geometry": {
         "type": "Polygon",
@@ -3398,7 +3396,7 @@
       "id": "way/122618847",
       "properties": {
         "@id": "way/122618847",
-        "leisure": "park"
+        "landuse": "Park"
       },
       "geometry": {
         "type": "Polygon",
@@ -3449,7 +3447,7 @@
       "id": "way/124105754",
       "properties": {
         "@id": "way/124105754",
-        "leisure": "park"
+        "landuse": "Park"
       },
       "geometry": {
         "type": "Polygon",
@@ -3520,7 +3518,7 @@
       "id": "way/124351812",
       "properties": {
         "@id": "way/124351812",
-        "leisure": "park"
+        "landuse": "Park"
       },
       "geometry": {
         "type": "Polygon",
@@ -3555,7 +3553,7 @@
       "id": "way/124351829",
       "properties": {
         "@id": "way/124351829",
-        "leisure": "park"
+        "landuse": "Park"
       },
       "geometry": {
         "type": "Polygon",
@@ -3590,7 +3588,7 @@
       "id": "way/128840097",
       "properties": {
         "@id": "way/128840097",
-        "leisure": "park",
+        "landuse": "Park",
         "name": "Merkurplatz"
       },
       "geometry": {
@@ -3638,7 +3636,7 @@
       "id": "way/148349695",
       "properties": {
         "@id": "way/148349695",
-        "leisure": "park",
+        "landuse": "Park",
         "name": "Stadthausanlage"
       },
       "geometry": {
@@ -3690,7 +3688,7 @@
       "id": "way/149868371",
       "properties": {
         "@id": "way/149868371",
-        "leisure": "park",
+        "landuse": "Park",
         "name": "Rieterplatz"
       },
       "geometry": {
@@ -3726,7 +3724,7 @@
       "id": "way/172612212",
       "properties": {
         "@id": "way/172612212",
-        "leisure": "park"
+        "landuse": "Park"
       },
       "geometry": {
         "type": "Polygon",
@@ -3781,7 +3779,7 @@
       "id": "way/211336964",
       "properties": {
         "@id": "way/211336964",
-        "leisure": "park"
+        "landuse": "Park"
       },
       "geometry": {
         "type": "Polygon",
@@ -3832,7 +3830,7 @@
       "id": "way/239850669",
       "properties": {
         "@id": "way/239850669",
-        "leisure": "park"
+        "landuse": "Park"
       },
       "geometry": {
         "type": "Polygon",
@@ -3871,7 +3869,7 @@
       "id": "way/239850670",
       "properties": {
         "@id": "way/239850670",
-        "leisure": "park"
+        "landuse": "Park"
       },
       "geometry": {
         "type": "Polygon",
@@ -3914,7 +3912,7 @@
       "id": "way/243097243",
       "properties": {
         "@id": "way/243097243",
-        "leisure": "park"
+        "landuse": "Park"
       },
       "geometry": {
         "type": "Polygon",
@@ -3949,7 +3947,7 @@
       "id": "way/284686694",
       "properties": {
         "@id": "way/284686694",
-        "leisure": "park"
+        "landuse": "Park"
       },
       "geometry": {
         "type": "Polygon",
@@ -4012,7 +4010,7 @@
       "id": "way/318866103",
       "properties": {
         "@id": "way/318866103",
-        "leisure": "park",
+        "landuse": "Park",
         "name": "Patumbah-Park"
       },
       "geometry": {
@@ -4108,7 +4106,7 @@
       "id": "way/334336242",
       "properties": {
         "@id": "way/334336242",
-        "leisure": "park"
+        "landuse": "Park"
       },
       "geometry": {
         "type": "Polygon",
@@ -4275,7 +4273,7 @@
       "id": "way/335066119",
       "properties": {
         "@id": "way/335066119",
-        "leisure": "park"
+        "landuse": "Park"
       },
       "geometry": {
         "type": "Polygon",
@@ -4378,7 +4376,7 @@
       "id": "way/338100075",
       "properties": {
         "@id": "way/338100075",
-        "leisure": "park",
+        "landuse": "Park",
         "name": "Villa Bleuler"
       },
       "geometry": {
@@ -4446,7 +4444,7 @@
       "id": "way/338126261",
       "properties": {
         "@id": "way/338126261",
-        "leisure": "park",
+        "landuse": "Park",
         "name": "Villa Hohenbühl"
       },
       "geometry": {
@@ -4510,7 +4508,7 @@
       "id": "way/360264841",
       "properties": {
         "@id": "way/360264841",
-        "leisure": "park"
+        "landuse": "Park"
       },
       "geometry": {
         "type": "Polygon",
@@ -4554,7 +4552,7 @@
       "properties": {
         "@id": "way/364500936",
         "layer": "1",
-        "leisure": "park"
+        "landuse": "Park"
       },
       "geometry": {
         "type": "Polygon",
@@ -4701,7 +4699,7 @@
       "id": "way/422024164",
       "properties": {
         "@id": "way/422024164",
-        "leisure": "park"
+        "landuse": "Park"
       },
       "geometry": {
         "type": "Polygon",
@@ -4748,7 +4746,7 @@
       "id": "way/424305372",
       "properties": {
         "@id": "way/424305372",
-        "leisure": "park"
+        "landuse": "Park"
       },
       "geometry": {
         "type": "Polygon",
@@ -4783,7 +4781,7 @@
       "id": "way/450344934",
       "properties": {
         "@id": "way/450344934",
-        "leisure": "park"
+        "landuse": "Park"
       },
       "geometry": {
         "type": "Polygon",

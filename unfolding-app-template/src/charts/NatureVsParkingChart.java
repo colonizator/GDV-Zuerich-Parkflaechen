@@ -5,11 +5,12 @@ import org.gicentre.utils.colour.ColourTable;
 import org.gicentre.utils.stat.BarChart;
 
 import de.fhpotsdam.unfolding.marker.Marker;
+import filter.Filterable;
 import marker.Property;
 import processing.core.PApplet;
 import zp.Const;
 
-public class NatureVsParkingChart {
+public class NatureVsParkingChart implements Chart {
 
 	private PApplet pApplet;
 	private BarChart natureVsParkingBarChart;
@@ -113,10 +114,24 @@ public class NatureVsParkingChart {
 		float total = 0;
 		for(Marker marker : markers) {
 			if(!onlyShown) {
-				total += (float) marker.getProperty(Property.AREA.toString());
+				if(marker instanceof Filterable) {
+					Filterable filterMarker = (Filterable) marker;
+					if(!filterMarker.isFiltered()) {
+						total += (float) marker.getProperty(Property.AREA.toString());
+					}
+				} else {
+					total += (float) marker.getProperty(Property.AREA.toString());
+				}
 			} else {
 				if(!marker.isHidden()) {
-					total += (float) marker.getProperty(Property.AREA.toString());
+					if(marker instanceof Filterable) {
+						Filterable filterMarker = (Filterable) marker;
+						if(!filterMarker.isFiltered()) {
+							total += (float) marker.getProperty(Property.AREA.toString());
+						}
+					} else {
+						total += (float) marker.getProperty(Property.AREA.toString());
+					}
 				}
 			}
 		}

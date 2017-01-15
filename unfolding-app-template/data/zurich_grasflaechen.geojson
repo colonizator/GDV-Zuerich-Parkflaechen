@@ -9,7 +9,7 @@
       "id": "way/31968511",
       "properties": {
         "@id": "way/31968511",
-        "landuse": "grass",
+        "landuse": "Gras",
         "leisure": "pitch"
       },
       "geometry": {
@@ -45,7 +45,7 @@
       "id": "way/238952163",
       "properties": {
         "@id": "way/238952163",
-        "landuse": "grass"
+        "landuse": "Gras"
       },
       "geometry": {
         "type": "Polygon",
@@ -100,7 +100,7 @@
       "id": "way/264771608",
       "properties": {
         "@id": "way/264771608",
-        "landuse": "grass"
+        "landuse": "Gras"
       },
       "geometry": {
         "type": "Polygon",
@@ -175,7 +175,7 @@
       "id": "way/367591246",
       "properties": {
         "@id": "way/367591246",
-        "landuse": "grass"
+        "landuse": "Gras"
       },
       "geometry": {
         "type": "Polygon",
@@ -250,7 +250,7 @@
       "id": "way/367960880",
       "properties": {
         "@id": "way/367960880",
-        "landuse": "grass"
+        "landuse": "Gras"
       },
       "geometry": {
         "type": "Polygon",
@@ -345,7 +345,7 @@
       "id": "way/371571666",
       "properties": {
         "@id": "way/371571666",
-        "landuse": "grass"
+        "landuse": "Gras"
       },
       "geometry": {
         "type": "Polygon",
@@ -384,7 +384,7 @@
       "id": "way/371571668",
       "properties": {
         "@id": "way/371571668",
-        "landuse": "grass"
+        "landuse": "Gras"
       },
       "geometry": {
         "type": "Polygon",

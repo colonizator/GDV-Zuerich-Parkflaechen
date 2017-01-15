@@ -29,8 +29,7 @@ public class HeatMap {
 			for (int y = mapY; y < mapY+map.getHeight(); y += gridHeight) {
 				int insideMarkerNumber = 0;
 				MarkerManager<Marker> markerManager = map.getDefaultMarkerManager();
-				//for (Marker m : markerManager.getMarkers()) {
-				for(int i = 0; i < markerManager.getMarkers().size() && i < 300; i++) {
+				for(int i = 0; i < markerManager.getMarkers().size(); i++) {
 					Marker m = markerManager.getMarkers().get(i);
 					ScreenPosition pos = map.getScreenPosition(m.getLocation());
 					if (pos.x > x && pos.x < x + gridWidth && pos.y > y && pos.y < y + gridHeight) {

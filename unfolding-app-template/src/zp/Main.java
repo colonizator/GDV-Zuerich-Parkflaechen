@@ -1,4 +1,5 @@
 package zp;
+import java.util.Arrays;
 import java.util.List;
 
 import Utils.ZPDataUtils;
@@ -10,6 +11,7 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
 import events.CustomEventDispatcher;
+import filter.Filter;
 import marker.DistrictMarker;
 import processing.core.PApplet;
 
@@ -39,6 +41,11 @@ public class Main extends PApplet {
 	private String selectedDistrictBName;
 
 	private DistrictMarker hoveredDistrict;
+	
+	private Filter filterNatureMapA;
+	private Filter filterNatureMapB;
+	private Filter filterParkingMapA;
+	private Filter filterParkingMapB;
 	
 	private NatureVsParkingChart natureVsParkingChart;
 	
@@ -76,6 +83,36 @@ public class Main extends PApplet {
 		diagramY = Const.SPACING_TOP + detailsMapHeight + (Const.SPACING_MAP_HEIGHT / 2);
 		diagramWidth = width / 3;
 		diagramHeight = detailsMapHeight - (Const.SPACING_MAP_HEIGHT / 2);
+		
+		this.filterNatureMapA = new Filter(this, 
+				(width*2/3)-40 + Const.SPACING_MAP_WIDTH, 
+				70, 16, 16,
+				Arrays.asList("Gras", "Wald", "Park"), 
+				"landuse", natureVsParkingChart,
+				this.grassMarkersA, this.forestMarkersA, this.parkMarkersA);
+		
+		this.filterNatureMapB = new Filter(this, 
+				(width*3/3)-40 + Const.SPACING_MAP_WIDTH, 
+				70, 16, 16,
+				Arrays.asList("Gras", "Wald", "Park"), 
+				"landuse", natureVsParkingChart,
+				this.grassMarkersB, this.forestMarkersB, this.parkMarkersB);
+		
+		this.filterParkingMapA = new Filter(this, 
+				(width*2/3)-40 + Const.SPACING_MAP_WIDTH, 
+				detailsMapHeight + 70, 16, 16,
+				Arrays.asList("Blaue", "Weisse", "Behinderten",
+				"Gueterumschlag", "Car", "Elektro", "Frauen", "Gueter oder Taxi",
+				"Taxi"), "ART", natureVsParkingChart,
+				this.parkingMarkersA);
+		
+		this.filterParkingMapB = new Filter(this, 
+				(width*3/3)-40 + Const.SPACING_MAP_WIDTH, 
+				detailsMapHeight + 70, 16, 16,
+				Arrays.asList("Blaue", "Weisse", "Behinderten",
+				"Gueterumschlag", "Car", "Elektro", "Frauen", "Gueter oder Taxi",
+				"Taxi"), "ART", natureVsParkingChart,
+				this.parkingMarkersB);
 	}
 
 	public void draw() {
@@ -102,9 +139,19 @@ public class Main extends PApplet {
 		
 		ZPMarkerUtils.showParkingIcons(this.parkingMapA, this.parkingMarkersA, 14);
 		ZPMarkerUtils.showParkingIcons(this.parkingMapB, this.parkingMarkersB, 14);
+
+		this.filterNatureMapA.draw();
+		this.filterNatureMapB.draw();
+		this.filterParkingMapA.draw();
+		this.filterParkingMapB.draw();
 	}
 
 	public void mouseClicked() {
+		this.filterNatureMapA.mouseClicked(mouseX, mouseY);
+		this.filterNatureMapB.mouseClicked(mouseX, mouseY);
+		this.filterParkingMapA.mouseClicked(mouseX, mouseY);
+		this.filterParkingMapB.mouseClicked(mouseX, mouseY);
+		
 		boolean isDistrictHit = this.districtMap.isHit(mouseX, mouseY);
 		if (isDistrictHit) {
 			Marker marker = this.districtMap.getFirstHitMarker(mouseX, mouseY);
