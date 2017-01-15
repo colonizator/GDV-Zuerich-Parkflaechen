@@ -72,7 +72,7 @@ public class ParkingMarker extends SimplePointMarker implements Filterable {
 						pg.fill(167,158,205);
 						pg.triangle(x-2, y+2, x+2, y+2, x, y-2);
 				} else if(type.equals("Elektro")) {
-						pg.fill(0,160,227);
+						pg.fill(14,119,0);
 						pg.triangle(x-2, y+2, x+2, y+2, x, y-2);
 				} else if(type.equals("Frauen")) {
 						pg.fill(235,134,181);

@@ -87,14 +87,14 @@ public class Main extends PApplet {
 		this.filterNatureMapA = new Filter(this, 
 				(width*2/3)-40 + Const.SPACING_MAP_WIDTH, 
 				70, 16, 16,
-				Arrays.asList("Gras", "Wald", "Park"), 
+				Arrays.asList("Gras", "Park", "Wald"), 
 				"landuse", natureVsParkingChart,
 				this.grassMarkersA, this.forestMarkersA, this.parkMarkersA);
 		
 		this.filterNatureMapB = new Filter(this, 
 				(width*3/3)-40 + Const.SPACING_MAP_WIDTH, 
 				70, 16, 16,
-				Arrays.asList("Gras", "Wald", "Park"), 
+				Arrays.asList("Gras", "Park", "Wald"), 
 				"landuse", natureVsParkingChart,
 				this.grassMarkersB, this.forestMarkersB, this.parkMarkersB);
 		
@@ -334,7 +334,9 @@ public class Main extends PApplet {
 	}
 
 	public void loadData() {
-		int grey = color(100, 100, 100, 127);
+		int transparent = color(100, 100, 100, 0);
+//		int lightGrey = color(124, 124, 124, 127);
+		int grey = color(124, 124, 124, 127);
 		int lightGrey = color(220, 220, 220, 127);
 		int greenPark = color(0, 170, 0, 127);
 		int lightGreenPark = color(0, 230, 0, 127);
@@ -344,8 +346,8 @@ public class Main extends PApplet {
 		int lightGreenForest = color(0, 200, 40, 127);
 		
 		this.districtMarkers = ZPDataUtils.loadDistricts(this, grey, lightGrey);
-		this.districtMarkersA = ZPDataUtils.loadDistricts(this, grey, lightGrey);
-		this.districtMarkersB = ZPDataUtils.loadDistricts(this, grey, lightGrey);
+		this.districtMarkersA = ZPDataUtils.loadDistricts(this, transparent, transparent);
+		this.districtMarkersB = ZPDataUtils.loadDistricts(this, transparent, transparent);
 		this.parkMarkersA = ZPDataUtils.loadParks(this, greenPark, lightGreenPark);
 		this.parkMarkersB = ZPDataUtils.loadParks(this, greenPark, lightGreenPark);
 		this.grassMarkersA = ZPDataUtils.loadGrass(this, greenGrass, lightGreenGrass);
@@ -374,7 +376,7 @@ public class Main extends PApplet {
 		addMarkersToMap(this.natureMapB, this.forestMarkersB);
 		addMarkersToMap(this.parkingMapB, this.parkingMarkersB);
 		addMarkersToMap(this.natureMapB, this.districtMarkersB);
-		hideAllMarkers(this.districtMarkersA);
+		hideAllMarkers(this.districtMarkersB);
 	}
 
 	public void addAMarkersToMap() {
@@ -383,7 +385,7 @@ public class Main extends PApplet {
 		addMarkersToMap(this.natureMapA, this.forestMarkersA);
 		addMarkersToMap(this.parkingMapA, this.parkingMarkersA);
 		addMarkersToMap(this.natureMapA, this.districtMarkersA);
-		hideAllMarkers(this.districtMarkersB);
+		hideAllMarkers(this.districtMarkersA);
 	}
 
 	public void addMarkersToMap(UnfoldingMap map, List<Marker> markers) {

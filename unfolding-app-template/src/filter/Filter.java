@@ -58,9 +58,53 @@ public class Filter {
 				.setSize(10, 10)
 				.setItemsPerRow(1)
 				.setSpacingColumn(0)
+				.setColorBackground(pApplet.color(224))
+				.setColorForeground(pApplet.color(224))
+				.setColorLabel(pApplet.color(51))
 				.setSpacingRow(5);
-		for(String option : this.options) {
+		for(int i = 0; i < this.options.size(); i++) {
+			String option = options.get(i);
 			this.checkbox.addItem(option, 0);
+			switch(option) {
+				case "Blaue":
+					this.checkbox.getItem(i).setColorActive(pApplet.color(0,160,227));
+					break;
+				case "Weisse":
+					this.checkbox.getItem(i).setColorActive(pApplet.color(23,174,148));
+					break;
+				case "Behinderten":
+					this.checkbox.getItem(i).setColorActive(pApplet.color(47,60,132));
+					break;
+				case "Gueterumschlag":
+					this.checkbox.getItem(i).setColorActive(pApplet.color(102,157,210));
+					break;
+				case "Car":
+					this.checkbox.getItem(i).setColorActive(pApplet.color(167,158,205));
+					break;
+				case "Elektro":
+					this.checkbox.getItem(i).setColorActive(pApplet.color(14,119,0));
+					break;
+				case "Frauen":
+					this.checkbox.getItem(i).setColorActive(pApplet.color(235,134,181));
+					break;
+				case "Gueter oder Taxi":
+					this.checkbox.getItem(i).setColorActive(pApplet.color(142,0,193));
+					break;
+				case "Taxi":
+					this.checkbox.getItem(i).setColorActive(pApplet.color(254,191,12));
+					break;
+				case "Gras":
+					this.checkbox.getItem(i).setColorActive(pApplet.color(0, 220, 0));
+					break;
+				case "Wald":
+					this.checkbox.getItem(i).setColorActive(pApplet.color(0, 70, 15));
+					break;
+				case "Park":
+					this.checkbox.getItem(i).setColorActive(pApplet.color(0, 170, 0));
+					break;
+				default:
+					break;
+			}
 		}
 		this.checkbox.activateAll();
 		
@@ -71,7 +115,7 @@ public class Filter {
 	}
 	
 	public void draw() {
-		this.pApplet.fill(0);
+		this.pApplet.fill(51);
 		if(this.markersLists.length <= 1) {
 			this.pApplet.text("Parkpl\u00E4tze", this.x-70, this.y+13);
 		} else {
@@ -79,7 +123,8 @@ public class Filter {
 		}
 		this.pApplet.image(this.icon, this.x, this.y, this.width, this.height);
 		if(this.showMenu) {
-			this.pApplet.fill(0);
+			this.pApplet.stroke(102);
+			this.pApplet.fill(255);
 			this.pApplet.rect(this.menuX, this.menuY, this.menuWidth, this.menuHeight);
 			this.checkbox.setVisible(true);
 		} else {

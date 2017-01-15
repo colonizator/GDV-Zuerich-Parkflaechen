@@ -105,7 +105,7 @@ public class NatureVsParkingChart implements Chart {
 					cTable);
 		}
 		this.natureVsParkingBarChart.showValueAxis(true);
-		this.natureVsParkingBarChart.setValueFormat("#m²");
+		this.natureVsParkingBarChart.setValueFormat("# m²");
 		this.natureVsParkingBarChart.showCategoryAxis(true);
 		this.natureVsParkingBarChart.setMinValue(0);
 	}

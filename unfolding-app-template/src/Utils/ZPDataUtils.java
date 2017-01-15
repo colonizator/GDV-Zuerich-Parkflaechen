@@ -34,6 +34,8 @@ public class ZPDataUtils {
 				districtMarkers.add(marker);
 				marker.setColor(color);
 				marker.setHighlightColor(selectedColor);
+				marker.setStrokeColor(pApplet.color(51));
+				marker.setHighlightStrokeColor(pApplet.color(51));
 			}
 		}
 		return districtMarkers;
