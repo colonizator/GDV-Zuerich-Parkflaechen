@@ -176,6 +176,9 @@ public class Main extends PApplet {
 								this.selectedDistrictA.getProperty("name");
 						this.selectedDistrictBName = "Z\u00FCrich";
 						
+						showOnlySelectedDistrict(selectedDistrictA, districtMarkersA);
+						showOnlySelectedDistrict(null, districtMarkersB);
+						
 						this.natureVsParkingChart.setMapASelected(true);
 						this.natureVsParkingChart.setMapBSelected(false);
 						this.natureVsParkingChart.setDistrictMapAName((String) 
@@ -190,6 +193,9 @@ public class Main extends PApplet {
 						this.selectedDistrictAName = (String) 
 								this.selectedDistrictA.getProperty("name");
 						this.selectedDistrictBName = "Z\u00FCrich";
+						
+						showOnlySelectedDistrict(selectedDistrictA, districtMarkersA);
+						showOnlySelectedDistrict(null, districtMarkersB);
 						
 						this.natureVsParkingChart.setMapASelected(true);
 						this.natureVsParkingChart.setMapBSelected(false);
@@ -207,6 +213,9 @@ public class Main extends PApplet {
 						this.selectedDistrictAName = "";
 						this.selectedDistrictBName = "Z\u00FCrich";
 						
+						showOnlySelectedDistrict(null, districtMarkersA);
+						showOnlySelectedDistrict(null, districtMarkersB);
+						
 						this.natureVsParkingChart.setMapASelected(false);
 						this.natureVsParkingChart.setMapBSelected(false);
 						this.natureVsParkingChart.init();
@@ -222,6 +231,8 @@ public class Main extends PApplet {
 								this.selectedDistrictA.getProperty("name");
 						this.selectedDistrictBName = "Z\u00FCrich";
 						
+						showOnlySelectedDistrict(selectedDistrictA, districtMarkersA);
+						
 						this.natureVsParkingChart.setMapASelected(true);
 						this.natureVsParkingChart.setMapBSelected(false);
 						this.natureVsParkingChart.setDistrictMapAName(
@@ -236,6 +247,8 @@ public class Main extends PApplet {
 								this.selectedDistrictA.getProperty("name");
 						this.selectedDistrictBName = (String) 
 								this.selectedDistrictB.getProperty("name");
+						
+						showOnlySelectedDistrict(selectedDistrictB, districtMarkersB);
 						
 						this.natureVsParkingChart.setMapASelected(true);
 						this.natureVsParkingChart.setMapBSelected(true);
@@ -345,9 +358,9 @@ public class Main extends PApplet {
 		int greenForest = color(0, 70, 15, 127);
 		int lightGreenForest = color(0, 200, 40, 127);
 		
-		this.districtMarkers = ZPDataUtils.loadDistricts(this, grey, lightGrey);
-		this.districtMarkersA = ZPDataUtils.loadDistricts(this, transparent, transparent);
-		this.districtMarkersB = ZPDataUtils.loadDistricts(this, transparent, transparent);
+		this.districtMarkers = ZPDataUtils.loadDistricts(this, grey, lightGrey, -1);
+		this.districtMarkersA = ZPDataUtils.loadDistricts(this, transparent, transparent, 3);
+		this.districtMarkersB = ZPDataUtils.loadDistricts(this, transparent, transparent, 3);
 		this.parkMarkersA = ZPDataUtils.loadParks(this, greenPark, lightGreenPark);
 		this.parkMarkersB = ZPDataUtils.loadParks(this, greenPark, lightGreenPark);
 		this.grassMarkersA = ZPDataUtils.loadGrass(this, greenGrass, lightGreenGrass);
@@ -376,6 +389,7 @@ public class Main extends PApplet {
 		addMarkersToMap(this.natureMapB, this.forestMarkersB);
 		addMarkersToMap(this.parkingMapB, this.parkingMarkersB);
 		addMarkersToMap(this.natureMapB, this.districtMarkersB);
+		addMarkersToMap(this.parkingMapB, this.districtMarkersB);
 		hideAllMarkers(this.districtMarkersB);
 	}
 
@@ -385,6 +399,7 @@ public class Main extends PApplet {
 		addMarkersToMap(this.natureMapA, this.forestMarkersA);
 		addMarkersToMap(this.parkingMapA, this.parkingMarkersA);
 		addMarkersToMap(this.natureMapA, this.districtMarkersA);
+		addMarkersToMap(this.parkingMapA, this.districtMarkersA);
 		hideAllMarkers(this.districtMarkersA);
 	}
 
@@ -439,6 +454,17 @@ public class Main extends PApplet {
 		}
 	}
 
+	public void showOnlySelectedDistrict(Marker marker, List<Marker> markers) {
+		hideAllMarkers(markers);
+		if(marker != null) {
+			for(Marker m : markers) {
+				if(ZPMarkerUtils.markerEquals(marker, m)) {
+					m.setHidden(false);
+				}
+			}
+		}
+	}
+	
 	public void showOnlySelectedDistrictA(Marker marker) {
 		hideAllMarkersMapA();
 		showOnlySelectedMarkers(marker, this.parkMarkersA);

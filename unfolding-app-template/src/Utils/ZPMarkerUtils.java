@@ -3,6 +3,7 @@ package Utils;
 import java.util.List;
 
 import de.fhpotsdam.unfolding.UnfoldingMap;
+import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
 import marker.ParkingMarker;
 import processing.core.PApplet;
@@ -52,6 +53,18 @@ public class ZPMarkerUtils {
 				pm.showIcon(show);
 			}
 		}
+	}
+	
+	public static boolean markerEquals(Marker marker1, Marker marker2) {
+		return equalLocations(marker1.getLocation(), marker2.getLocation());
+	}
+	
+	private static boolean equalLocations(Location locations1, Location locations2) {
+		boolean equal = false;
+		if (locations1.equals(locations2)) {
+			equal = true;
+		}
+		return equal;
 	}
 	
 }

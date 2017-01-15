@@ -20,7 +20,7 @@ import processing.core.PApplet;
 public class ZPDataUtils {
 
 	public static List<Marker> loadDistricts(PApplet pApplet, int color, 
-			int selectedColor) {
+			int selectedColor, int strokeWeight) {
 		List<Marker> districtMarkers = new ArrayList<Marker>();
 		
 		List<Feature> features = GeoJSONReader.loadData(pApplet, 
@@ -36,6 +36,9 @@ public class ZPDataUtils {
 				marker.setHighlightColor(selectedColor);
 				marker.setStrokeColor(pApplet.color(51));
 				marker.setHighlightStrokeColor(pApplet.color(51));
+				if(strokeWeight > -1) {
+					marker.setStrokeWeight(strokeWeight);
+				}
 			}
 		}
 		return districtMarkers;
