@@ -14,6 +14,7 @@ import events.CustomEventDispatcher;
 import filter.Filter;
 import marker.DistrictMarker;
 import processing.core.PApplet;
+import processing.core.PFont;
 
 public class Main extends PApplet {
 
@@ -47,6 +48,9 @@ public class Main extends PApplet {
 	private Filter filterParkingMapA;
 	private Filter filterParkingMapB;
 	
+	private PFont fontBig;
+	private PFont fontNormal;
+	
 	private NatureVsParkingChart natureVsParkingChart;
 	
 	int detailsMapHeight;
@@ -67,6 +71,8 @@ public class Main extends PApplet {
 	public void setup() {
 		this.selectedDistrictAName = "";
 		this.selectedDistrictBName = "Z\u00FCrich";
+		this.fontNormal = createFont("Segoe UI", 14);
+		this.fontBig = createFont("Segoe UI", 26);
 
 		initMaps();
 		loadData();
@@ -125,7 +131,7 @@ public class Main extends PApplet {
 		fill(255);
 		this.natureVsParkingChart.draw(width, height);
 		textSize(26);
-		textFont(createFont("Segoe UI", 26));
+		textFont(this.fontBig);
 		text("Stadtbezirke", 
 				50, 
 				35);
@@ -135,7 +141,7 @@ public class Main extends PApplet {
 		text(this.selectedDistrictBName, 
 				(width*2 / 3) + 2*Const.SPACING_MAP_WIDTH + 50, 
 				35);
-		textFont(createFont("Segoe UI", 14));
+		textFont(this.fontNormal);
 		
 		ZPMarkerUtils.showParkingIcons(this.parkingMapA, this.parkingMarkersA, 14);
 		ZPMarkerUtils.showParkingIcons(this.parkingMapB, this.parkingMarkersB, 14);

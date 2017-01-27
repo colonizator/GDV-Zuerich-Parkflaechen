@@ -51,9 +51,12 @@ public class Filter {
 		
 		this.icon = this.pApplet.loadImage("img/filter.png");
 		this.options = options;
+		this.markersLists = markersLists;
+		this.filterAttribute = filterAttribute;
+		this.chart = chart;
+		
 		ControlP5 cP5 = new ControlP5(pApplet);
 		this.checkbox = cP5.addCheckBox("checkbox")
-				.setPosition(x-70, y+height+15)
 				.setSize(10, 10)
 				.setItemsPerRow(1)
 				.setSpacingColumn(0)
@@ -61,6 +64,11 @@ public class Filter {
 				.setColorForeground(pApplet.color(224))
 				.setColorLabel(pApplet.color(51))
 				.setSpacingRow(5);
+		if(this.markersLists.length <= 1) {
+			this.checkbox.setPosition(x-70, y+height+15);
+		} else {
+			this.checkbox.setPosition(x-80, y+height+15);
+		}
 		for(int i = 0; i < this.options.size(); i++) {
 			String option = options.get(i);
 			this.checkbox.addItem(option, 0);
@@ -106,24 +114,29 @@ public class Filter {
 			}
 		}
 		this.checkbox.activateAll();
-		
-		this.markersLists = markersLists;
-		this.filterAttribute = filterAttribute;
-		this.chart = chart;
 	}
 	
 	public void draw() {
-		this.pApplet.fill(51);
+		this.pApplet.stroke(102);
 		if(this.markersLists.length <= 1) {
+			this.pApplet.fill(249);
+			this.pApplet.rect(this.x-75, this.y-2, 71, 20);
+			this.pApplet.fill(51);
 			this.pApplet.text("Parkpl\u00E4tze", this.x-70, this.y+13);
 		} else {
+			this.pApplet.fill(249);
+			this.pApplet.rect(this.x-85, this.y-2, 82, 20);
+			this.pApplet.fill(51);
 			this.pApplet.text("Gr\u00FCnfl\u00E4chen", this.x-80, this.y+13);
 		}
 		this.pApplet.image(this.icon, this.x, this.y, this.width, this.height);
 		if(this.showMenu) {
-			this.pApplet.stroke(102);
 			this.pApplet.fill(255);
-			this.pApplet.rect(this.menuX, this.menuY, this.menuWidth, this.menuHeight);
+			if(this.markersLists.length <= 1) {
+				this.pApplet.rect(this.menuX, this.menuY, this.menuWidth, this.menuHeight);
+			} else {
+				this.pApplet.rect(this.menuX-10, this.menuY, this.menuWidth+10, this.menuHeight);
+			}
 			this.checkbox.setVisible(true);
 		} else {
 			this.checkbox.setVisible(false);
